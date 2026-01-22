@@ -61,7 +61,8 @@ function MapEventsHandler({
   onMapClick?: (lat: number, lng: number) => void;
   onContextMenuSelect?: (lat: number, lng: number, type: 'origin' | 'destination') => void;
 }) {
-  const [contextMenu, setContextMenu] = useState<{ lat: number; lng: number } | null>(null);
+  const [contextMenu, setContextMenu] = useState<{ lat: number; lng: number; x: number; y: number } | null>(null);
+  const map = useMap();
 
   useMapEvents({
     click: (e) => {
@@ -71,7 +72,9 @@ function MapEventsHandler({
       }
     },
     contextmenu: (e) => {
-      setContextMenu({ lat: e.latlng.lat, lng: e.latlng.lng });
+      // Use containerPoint for relative positioning within the map container
+      const { x, y } = e.containerPoint;
+      setContextMenu({ lat: e.latlng.lat, lng: e.latlng.lng, x, y });
     },
   });
 
@@ -81,9 +84,8 @@ function MapEventsHandler({
     <div 
       className="absolute z-[2000] bg-white rounded-lg shadow-xl border border-slate-200 p-1 flex flex-col gap-1 min-w-[160px]"
       style={{
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
+        left: contextMenu.x,
+        top: contextMenu.y,
         pointerEvents: 'auto'
       }}
     >
