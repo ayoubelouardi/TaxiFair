@@ -6,9 +6,19 @@ import markerIcon2xPng from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
 
 // Fix for default Leaflet marker icons not loading in React
-const defaultIcon = new Icon({
+const originIcon = new Icon({
   iconUrl: markerIconPng,
   iconRetinaUrl: markerIcon2xPng,
+  shadowUrl: markerShadowPng,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+// Create a red icon for the destination
+const destinationIcon = new Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
   shadowUrl: markerShadowPng,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -72,13 +82,13 @@ export function MapBackground({ origin, destination, onMapClick, selectionMode }
         />
         
         {origin && (
-          <Marker position={[origin.lat, origin.lng]} icon={defaultIcon}>
+          <Marker position={[origin.lat, origin.lng]} icon={originIcon}>
             <Popup>Origin</Popup>
           </Marker>
         )}
 
         {destination && (
-          <Marker position={[destination.lat, destination.lng]} icon={defaultIcon}>
+          <Marker position={[destination.lat, destination.lng]} icon={destinationIcon}>
             <Popup>Destination</Popup>
           </Marker>
         )}
