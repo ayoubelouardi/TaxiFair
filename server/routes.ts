@@ -123,6 +123,47 @@ function calculatePrice(
 }
 
 
+// forced night state
+function calculatePriceWithOverride(
+  distanceMeters: number, 
+  travelTime: Date, 
+  rules: any,
+  isNightOverride: boolean
+): { total: number; breakdown: any; isNight: boolean } {
+  let total = 0;
+  const breakdown: any = {};
+  
+  if (rules.enabled_rules.includes("BASE_FARE")) {
+    total += rules.base_fare;
+    breakdown.baseFare = rules.base_fare;
+  }
+
+  if (rules.enabled_rules.includes("DISTANCE_STEP_CALC")) {
+    const steps = Math.ceil(distanceMeters / rules.distance_step_meters);
+    const distanceCost = steps * rules.price_per_step;
+    total += distanceCost;
+    breakdown.distanceFare = Number(distanceCost.toFixed(2));
+  }
+
+  if (rules.enabled_rules.includes("MINIMUM_CHECK")) {
+    if (total < rules.minimum_fare) {
+      const adjustment = rules.minimum_fare - total;
+      breakdown.minimumFareAdjustment = Number(adjustment.toFixed(2));
+      total = rules.minimum_fare;
+    }
+  }
+
+  if (isNightOverride && rules.enabled_rules.includes("NIGHT_MULTIPLIER")) {
+    const surcharge = total * (rules.night_surcharge_percent / 100);
+    breakdown.nightSurcharge = Number(surcharge.toFixed(2));
+    total += surcharge;
+  } else {
+    breakdown.nightSurcharge = 0;
+  }
+
+  return { total: Number(total.toFixed(2)), breakdown, isNight: isNightOverride };
+}
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
@@ -178,13 +219,33 @@ export async function registerRoutes(
         profile.rulesConfig
       );
 
+      // Apply override if provided
+      const finalIsNight = input.isNightOverride !== undefined ? input.isNightOverride : isNight;
+      
+      // Re-calculate if override changed things
+      let finalTotal = total;
+      let finalBreakdown = breakdown;
+
+      if (input.isNightOverride !== undefined && input.isNightOverride !== isNight) {
+          // We need to re-run the price calculation with forced night state
+          // Let's modify calculatePrice slightly to accept an override
+          const reCalc = calculatePriceWithOverride(
+            route.distanceMeters,
+            travelTime,
+            profile.rulesConfig,
+            input.isNightOverride
+          );
+          finalTotal = reCalc.total;
+          finalBreakdown = reCalc.breakdown;
+      }
+
       const response: EstimateResponse = {
-        estimatedPrice: total,
+        estimatedPrice: finalTotal,
         currency: city.currencyCode,
         distanceKm: Number((route.distanceMeters / 1000).toFixed(2)),
         durationMin: Math.ceil(route.durationSeconds / 60),
-        isNightFare: isNight,
-        breakdown: breakdown
+        isNightFare: finalIsNight,
+        breakdown: finalBreakdown
       };
 
       res.json(response);

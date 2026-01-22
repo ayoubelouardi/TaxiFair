@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Navigation, Loader2, Search, Check, ChevronsUpDown } from "lucide-react";
+import { MapPin, Navigation, Loader2, Search, Check, ChevronsUpDown, Sun, Moon } from "lucide-react";
 
 import { useCities, useTransportModes, useCalculateEstimate } from "@/hooks/use-travel";
 import { MapBackground } from "@/components/MapBackground";
@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
@@ -24,6 +25,7 @@ const formSchema = z.object({
   originLng: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid longitude"),
   destLat: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid latitude"),
   destLng: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid longitude"),
+  isNight: z.boolean().default(false),
 });
 
 const DEMO_LOCATIONS = {
@@ -80,6 +82,7 @@ export default function Home() {
       destLat: parseFloat(data.destLat),
       destLng: parseFloat(data.destLng),
       travelTime: new Date().toISOString(),
+      isNightOverride: data.isNight,
     });
   };
 
@@ -184,6 +187,27 @@ export default function Home() {
                               </SelectContent>
                             </Select>
                             <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <div className="space-y-0.5">
+                        <FormLabel className="text-sm font-medium">Night Pricing</FormLabel>
+                        <p className="text-xs text-muted-foreground">Toggle night rate surcharge</p>
+                      </div>
+                      <FormField
+                        control={form.control}
+                        name="isNight"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Switch
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
                           </FormItem>
                         )}
                       />

@@ -65,6 +65,7 @@ export const estimateRequestSchema = z.object({
   citySlug: z.string(),
   transportModeSlug: z.string(),
   travelTime: z.string().optional(), // ISO string, defaults to now
+  isNightOverride: z.boolean().optional(),
 });
 
 export type EstimateRequest = z.infer<typeof estimateRequestSchema>;
