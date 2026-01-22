@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 import { useEffect } from 'react';
 import { Icon } from 'leaflet';
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
@@ -19,6 +19,8 @@ const defaultIcon = new Icon({
 interface MapBackgroundProps {
   origin?: { lat: number; lng: number };
   destination?: { lat: number; lng: number };
+  onMapClick?: (lat: number, lng: number) => void;
+  selectionMode?: 'origin' | 'destination' | null;
 }
 
 // Helper to center map when points change
@@ -41,7 +43,18 @@ function MapController({ origin, destination }: MapBackgroundProps) {
   return null;
 }
 
-export function MapBackground({ origin, destination }: MapBackgroundProps) {
+function MapClickHandler({ onMapClick }: { onMapClick?: (lat: number, lng: number) => void }) {
+  useMapEvents({
+    click: (e) => {
+      if (onMapClick) {
+        onMapClick(e.latlng.lat, e.latlng.lng);
+      }
+    },
+  });
+  return null;
+}
+
+export function MapBackground({ origin, destination, onMapClick, selectionMode }: MapBackgroundProps) {
   // Casablanca default center
   const defaultCenter = { lat: 33.5731, lng: -7.5898 };
 
@@ -51,7 +64,7 @@ export function MapBackground({ origin, destination }: MapBackgroundProps) {
         center={[defaultCenter.lat, defaultCenter.lng]} 
         zoom={13} 
         scrollWheelZoom={true}
-        zoomControl={false} // We can add custom controls if needed
+        zoomControl={false} 
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -71,8 +84,17 @@ export function MapBackground({ origin, destination }: MapBackgroundProps) {
         )}
 
         <MapController origin={origin} destination={destination} />
+        <MapClickHandler onMapClick={onMapClick} />
       </MapContainer>
       
+      {selectionMode && (
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] pointer-events-none">
+          <div className="bg-primary text-white px-4 py-2 rounded-full shadow-lg font-medium animate-pulse">
+            Click on map to select {selectionMode}
+          </div>
+        </div>
+      )}
+
       {/* Subtle overlay gradient to make text legible if placed on top */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/10 to-transparent z-[11]" />
     </div>

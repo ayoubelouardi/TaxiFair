@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Navigation, Calendar, Loader2 } from "lucide-react";
+import { MapPin, Navigation, Loader2, Search, Check, ChevronsUpDown } from "lucide-react";
 
 import { useCities, useTransportModes, useCalculateEstimate } from "@/hooks/use-travel";
 import { MapBackground } from "@/components/MapBackground";
@@ -14,9 +13,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 
-// Extending schema for form specific fields if needed, 
-// but mostly mapping directly to API schema
 const formSchema = z.object({
   citySlug: z.string().min(1, "Please select a city"),
   modeSlug: z.string().min(1, "Please select a transport mode"),
@@ -26,8 +26,6 @@ const formSchema = z.object({
   destLng: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid longitude"),
 });
 
-// Hardcoded coordinates for demo simplicity 
-// In a real app, we'd use a Geocoding API/Component
 const DEMO_LOCATIONS = {
   casablanca: {
     "Casa Port": { lat: 33.5992, lng: -7.6192 },
@@ -41,6 +39,7 @@ const DEMO_LOCATIONS = {
 export default function Home() {
   const [selectedOrigin, setSelectedOrigin] = useState<{lat: number, lng: number} | undefined>();
   const [selectedDest, setSelectedDest] = useState<{lat: number, lng: number} | undefined>();
+  const [selectionMode, setSelectionMode] = useState<'origin' | 'destination' | null>(null);
 
   const { data: cities, isLoading: loadingCities } = useCities();
   const { data: modes, isLoading: loadingModes } = useTransportModes();
@@ -49,36 +48,28 @@ export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      citySlug: "",
+      citySlug: "casablanca",
       modeSlug: "",
-      originLat: "33.5992", // Default to Casa Port
+      originLat: "33.5992",
       originLng: "-7.6192",
-      destLat: "33.5753",   // Default to Morocco Mall
+      destLat: "33.5753",
       destLng: "-7.7061",
     },
   });
 
-  // Watch values to update map markers
-  const originLat = form.watch("originLat");
-  const originLng = form.watch("originLng");
-  const destLat = form.watch("destLat");
-  const destLng = form.watch("destLng");
-
-  // Update map state when valid coordinates are entered
-  const handleCoordUpdate = () => {
-    const oLat = parseFloat(originLat);
-    const oLng = parseFloat(originLng);
-    const dLat = parseFloat(destLat);
-    const dLng = parseFloat(destLng);
-
-    if (!isNaN(oLat) && !isNaN(oLng)) setSelectedOrigin({ lat: oLat, lng: oLng });
-    if (!isNaN(dLat) && !isNaN(dLng)) setSelectedDest({ lat: dLat, lng: dLng });
+  const handleMapClick = (lat: number, lng: number) => {
+    if (selectionMode === 'origin') {
+      form.setValue("originLat", lat.toFixed(6));
+      form.setValue("originLng", lng.toFixed(6));
+      setSelectedOrigin({ lat, lng });
+      setSelectionMode(null);
+    } else if (selectionMode === 'destination') {
+      form.setValue("destLat", lat.toFixed(6));
+      form.setValue("destLng", lng.toFixed(6));
+      setSelectedDest({ lat, lng });
+      setSelectionMode(null);
+    }
   };
-
-  // Initial map set on load
-  useState(() => {
-    handleCoordUpdate();
-  });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     estimateMutation.mutate({
@@ -92,9 +83,8 @@ export default function Home() {
     });
   };
 
-  // Helper to pre-fill coordinates from demo locations
-  const setDemoLocation = (type: 'origin' | 'dest', name: keyof typeof DEMO_LOCATIONS.casablanca) => {
-    const coords = DEMO_LOCATIONS.casablanca[name];
+  const setDemoLocation = (type: 'origin' | 'dest', name: string) => {
+    const coords = DEMO_LOCATIONS.casablanca[name as keyof typeof DEMO_LOCATIONS.casablanca];
     if (type === 'origin') {
       form.setValue("originLat", coords.lat.toString());
       form.setValue("originLng", coords.lng.toString());
@@ -108,16 +98,18 @@ export default function Home() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden flex flex-col md:flex-row">
-      {/* --- Map Layer --- */}
       <div className="absolute inset-0 w-full h-full">
-        <MapBackground origin={selectedOrigin} destination={selectedDest} />
+        <MapBackground 
+          origin={selectedOrigin} 
+          destination={selectedDest} 
+          onMapClick={handleMapClick}
+          selectionMode={selectionMode}
+        />
       </div>
 
-      {/* --- Floating UI Panel --- */}
       <div className="relative z-10 w-full md:w-[450px] h-full flex flex-col pointer-events-none">
         <div className="flex-1 overflow-y-auto p-4 md:p-6 pointer-events-auto">
           
-          {/* Header */}
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -127,7 +119,6 @@ export default function Home() {
             <p className="text-sm text-muted-foreground">Professional fare estimator for Casablanca</p>
           </motion.div>
 
-          {/* Main Form */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -142,7 +133,6 @@ export default function Home() {
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     
-                    {/* Location Config */}
                     <div className="grid grid-cols-2 gap-3">
                       <FormField
                         control={form.control}
@@ -201,46 +191,17 @@ export default function Home() {
 
                     <div className="h-px bg-slate-100 my-2" />
 
-                    {/* Coordinates - For MVP simplicity using Select for predefined spots + Input for coords */}
                     <div className="space-y-3">
                       <div className="space-y-2">
                         <FormLabel className="flex items-center gap-2 text-sm font-medium">
                           <div className="w-2 h-2 rounded-full bg-primary" /> Origin
                         </FormLabel>
                         <div className="flex gap-2">
-                          <Select onValueChange={(val) => setDemoLocation('origin', val as any)}>
-                            <SelectTrigger className="flex-1 bg-slate-50">
-                              <SelectValue placeholder="Quick Select..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {Object.keys(DEMO_LOCATIONS.casablanca).map(loc => (
-                                <SelectItem key={loc} value={loc}>{loc}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <FormField
-                            control={form.control}
-                            name="originLat"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input {...field} placeholder="Lat" className="text-xs font-mono h-8" onChange={(e) => {field.onChange(e); handleCoordUpdate();}} />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="originLng"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input {...field} placeholder="Lng" className="text-xs font-mono h-8" onChange={(e) => {field.onChange(e); handleCoordUpdate();}} />
-                                </FormControl>
-                              </FormItem>
-                            )}
+                          <LocationSearch 
+                            placeholder="Search or pick on map..."
+                            onSelect={(name) => setDemoLocation('origin', name)}
+                            onPickOnMap={() => setSelectionMode('origin')}
+                            isActive={selectionMode === 'origin'}
                           />
                         </div>
                       </div>
@@ -250,39 +211,11 @@ export default function Home() {
                           <div className="w-2 h-2 rounded-full bg-accent" /> Destination
                         </FormLabel>
                         <div className="flex gap-2">
-                          <Select onValueChange={(val) => setDemoLocation('dest', val as any)}>
-                            <SelectTrigger className="flex-1 bg-slate-50">
-                              <SelectValue placeholder="Quick Select..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {Object.keys(DEMO_LOCATIONS.casablanca).map(loc => (
-                                <SelectItem key={loc} value={loc}>{loc}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
-                          <FormField
-                            control={form.control}
-                            name="destLat"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input {...field} placeholder="Lat" className="text-xs font-mono h-8" onChange={(e) => {field.onChange(e); handleCoordUpdate();}} />
-                                </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="destLng"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormControl>
-                                  <Input {...field} placeholder="Lng" className="text-xs font-mono h-8" onChange={(e) => {field.onChange(e); handleCoordUpdate();}} />
-                                </FormControl>
-                              </FormItem>
-                            )}
+                          <LocationSearch 
+                            placeholder="Search or pick on map..."
+                            onSelect={(name) => setDemoLocation('dest', name)}
+                            onPickOnMap={() => setSelectionMode('destination')}
+                            isActive={selectionMode === 'destination'}
                           />
                         </div>
                       </div>
@@ -308,7 +241,6 @@ export default function Home() {
             </Card>
           </motion.div>
           
-          {/* Result Section */}
           <div className="mt-6">
             <AnimatePresence mode="wait">
               {(estimateMutation.data || estimateMutation.isPending) && (
@@ -322,10 +254,75 @@ export default function Home() {
         </div>
       </div>
       
-      {/* --- Simple Footer/Copyright for Desktop --- */}
       <div className="hidden md:block absolute bottom-4 right-4 z-10 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs text-muted-foreground border border-white/50">
         © {new Date().getFullYear()} TaxiFair. Map data © OpenStreetMap.
       </div>
+    </div>
+  );
+}
+
+function LocationSearch({ 
+  placeholder, 
+  onSelect, 
+  onPickOnMap,
+  isActive
+}: { 
+  placeholder: string; 
+  onSelect: (name: string) => void; 
+  onPickOnMap: () => void;
+  isActive: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const locations = Object.keys(DEMO_LOCATIONS.casablanca);
+
+  return (
+    <div className="flex gap-2 w-full">
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="flex-1 justify-between bg-slate-50 border-slate-200"
+          >
+            <span className="truncate">{placeholder}</span>
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[300px] p-0" align="start">
+          <Command>
+            <CommandInput placeholder="Search location..." />
+            <CommandList>
+              <CommandEmpty>No location found.</CommandEmpty>
+              <CommandGroup>
+                {locations.map((loc) => (
+                  <CommandItem
+                    key={loc}
+                    value={loc}
+                    onSelect={() => {
+                      onSelect(loc);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check className={cn("mr-2 h-4 w-4 opacity-0")} />
+                    {loc}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      <Button 
+        type="button"
+        variant={isActive ? "default" : "outline"}
+        size="icon"
+        className={cn("shrink-0", isActive && "animate-pulse")}
+        onClick={onPickOnMap}
+        title="Pick on map"
+      >
+        <MapPin className="h-4 w-4" />
+      </Button>
     </div>
   );
 }
