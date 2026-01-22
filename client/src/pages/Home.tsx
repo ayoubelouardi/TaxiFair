@@ -43,6 +43,9 @@ export default function Home() {
   const [selectedDest, setSelectedDest] = useState<{lat: number, lng: number} | undefined>();
   const [selectionMode, setSelectionMode] = useState<'origin' | 'destination' | null>(null);
 
+  const [originName, setOriginName] = useState("");
+  const [destName, setDestName] = useState("");
+
   const { data: cities, isLoading: loadingCities } = useCities();
   const { data: modes, isLoading: loadingModes } = useTransportModes();
   const estimateMutation = useCalculateEstimate();
@@ -64,11 +67,13 @@ export default function Home() {
       form.setValue("originLat", lat.toFixed(6));
       form.setValue("originLng", lng.toFixed(6));
       setSelectedOrigin({ lat, lng });
+      setOriginName(`Map: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
       setSelectionMode(null);
     } else if (selectionMode === 'destination') {
       form.setValue("destLat", lat.toFixed(6));
       form.setValue("destLng", lng.toFixed(6));
       setSelectedDest({ lat, lng });
+      setDestName(`Map: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
       setSelectionMode(null);
     }
   };
@@ -92,10 +97,12 @@ export default function Home() {
       form.setValue("originLat", coords.lat.toString());
       form.setValue("originLng", coords.lng.toString());
       setSelectedOrigin(coords);
+      setOriginName(name);
     } else {
       form.setValue("destLat", coords.lat.toString());
       form.setValue("destLng", coords.lng.toString());
       setSelectedDest(coords);
+      setDestName(name);
     }
   };
 
@@ -223,6 +230,7 @@ export default function Home() {
                         <div className="flex gap-2">
                           <LocationSearch 
                             placeholder="Search or pick on map..."
+                            selectedValue={originName}
                             onSelect={(name) => setDemoLocation('origin', name)}
                             onPickOnMap={() => setSelectionMode('origin')}
                             isActive={selectionMode === 'origin'}
@@ -237,6 +245,7 @@ export default function Home() {
                         <div className="flex gap-2">
                           <LocationSearch 
                             placeholder="Search or pick on map..."
+                            selectedValue={destName}
                             onSelect={(name) => setDemoLocation('dest', name)}
                             onPickOnMap={() => setSelectionMode('destination')}
                             isActive={selectionMode === 'destination'}
@@ -287,11 +296,13 @@ export default function Home() {
 
 function LocationSearch({ 
   placeholder, 
+  selectedValue,
   onSelect, 
   onPickOnMap,
   isActive
 }: { 
   placeholder: string; 
+  selectedValue: string;
   onSelect: (name: string) => void; 
   onPickOnMap: () => void;
   isActive: boolean;
@@ -309,7 +320,7 @@ function LocationSearch({
             aria-expanded={open}
             className="flex-1 justify-between bg-slate-50 border-slate-200"
           >
-            <span className="truncate">{placeholder}</span>
+            <span className="truncate">{selectedValue || placeholder}</span>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
