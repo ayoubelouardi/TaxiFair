@@ -108,6 +108,20 @@ export default function Home() {
     }
   };
 
+  const handleContextMenuSelect = (lat: number, lng: number, type: 'origin' | 'destination') => {
+    if (type === 'origin') {
+      form.setValue("originLat", lat.toFixed(6));
+      form.setValue("originLng", lng.toFixed(6));
+      setSelectedOrigin({ lat, lng });
+      setOriginName(`Map: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+    } else {
+      form.setValue("destLat", lat.toFixed(6));
+      form.setValue("destLng", lng.toFixed(6));
+      setSelectedDest({ lat, lng });
+      setDestName(`Map: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+    }
+  };
+
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     estimateMutation.mutate({
       citySlug: data.citySlug,
@@ -143,6 +157,7 @@ export default function Home() {
           origin={selectedOrigin} 
           destination={selectedDest} 
           onMapClick={handleMapClick}
+          onContextMenuSelect={handleContextMenuSelect}
           selectionMode={selectionMode}
         />
       </div>
