@@ -1,69 +1,42 @@
-# Modular Travel Price Estimator - Deployment & Database Guide
+# TaxiFair - Client-Side Price Estimator
 
-This application is a flexible transportation pricing engine built with Node.js, Express, and PostgreSQL.
+A lightweight, client-side transportation pricing engine. This application functions entirely without a backend or database, using local static data for fare calculations.
 
-## 🚀 Quick Deployment Guide
+## 🚀 Getting Started
 
-### 1. Environment Setup
-The application requires a PostgreSQL database. Ensure the following environment variables are set:
-- `DATABASE_URL`: Your PostgreSQL connection string.
-- `SESSION_SECRET`: A secure string for session management.
-
-### 2. Installation
+### 1. Installation
 ```bash
 npm install
 ```
 
-### 3. Database Initialization
-This project uses Drizzle ORM. Sync your schema and seed the database with the initial pilot data:
+### 2. Development
 ```bash
-# Push schema to database
-npm run db:push
-
-# The application automatically seeds the Casablanca pilot data on first run
 npm run dev
 ```
 
-### 4. Replit Deployment
-1. Open the **Deployments** tool in Replit.
-2. Select **Autoscale** (recommended for web apps).
-3. Configure the machine power (CPU/RAM).
-4. Click **Deploy**.
+### 3. Build & Production
+To build the static application:
+```bash
+npm run build
+```
+The output will be in the `dist/` folder, ready for static hosting.
 
 ---
 
-## 🗄️ Database Documentation
+## 🏗️ Architecture
 
-The database schema is managed via Drizzle ORM and is located in `shared/schema.ts`.
+This application is now a fully client-side React application.
 
-### Tables Overview
+- **Data Source**: Pricing rules, cities, and transport modes are stored in `client/src/data/pricing.json`.
+- **Estimation Engine**: The logic for calculating fares (distance, night surcharges, minimum fares) resides in `client/src/lib/estimate.ts`.
+- **UI Components**: Built with React, Tailwind CSS, and Shadcn UI.
+- **Maps**: Uses Leaflet for origin/destination selection.
 
-#### 1. `cities`
-Stores city-specific metadata and currency.
-- `id` (UUID): Primary Key
-- `name` (String): Display name
-- `slug` (String): URL-friendly identifier
-- `currencyCode` (String): e.g., "MAD"
-- `timezone` (String): e.g., "Africa/Casablanca"
+## 🗄️ Pricing Configuration
 
-#### 2. `transport_modes`
-Stores available transportation types.
-- `id` (UUID): Primary Key
-- `name` (String): e.g., "Small Red Taxi"
-- `slug` (String): e.g., "petit_taxi_red"
-- `iconUrl` (String): Path to the icon
+The pricing engine is configured via JSON. You can modify the rules in `client/src/data/pricing.json`.
 
-#### 3. `pricing_profiles`
-The core configuration table for the pricing engine.
-- `id` (UUID): Primary Key
-- `cityId` (FK): Links to `cities`
-- `modeId` (FK): Links to `transport_modes`
-- `rulesConfig` (JSONB): Contains the pricing logic (base fare, steps, night surcharges, etc.)
-
-### Initial Seed Data (Casablanca Pilot)
-The application comes pre-configured with the Casablanca Petit Taxi rules in the `pricing_profiles` table.
-
-**Rules Config JSON:**
+**Example Rules Config:**
 ```json
 {
   "base_fare": 2.00,
