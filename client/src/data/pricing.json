@@ -1,0 +1,43 @@
+{
+  "cities": [
+    {
+      "id": "city_casablanca",
+      "name": "Casablanca",
+      "slug": "casablanca",
+      "currencyCode": "MAD",
+      "timezone": "Africa/Casablanca"
+    }
+  ],
+  "transportModes": [
+    {
+      "id": "mode_petit_taxi_red",
+      "name": "Small Red Taxi",
+      "slug": "petit_taxi_red",
+      "iconUrl": "taxi-icon.png"
+    }
+  ],
+  "pricingProfiles": [
+    {
+      "id": "profile_casa_petit_red",
+      "cityId": "city_casablanca",
+      "modeId": "mode_petit_taxi_red",
+      "pricingStrategy": "METERED",
+      "active": true,
+      "rulesConfig": {
+        "base_fare": 2,
+        "minimum_fare": 7.5,
+        "distance_step_meters": 80,
+        "price_per_step": 0.2,
+        "night_surcharge_percent": 50,
+        "night_start_hour": 20,
+        "night_end_hour": 6,
+        "enabled_rules": [
+          "BASE_FARE",
+          "DISTANCE_STEP_CALC",
+          "MINIMUM_CHECK",
+          "NIGHT_MULTIPLIER"
+        ]
+      }
+    }
+  ]
+}

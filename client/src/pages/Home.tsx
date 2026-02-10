@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "wouter";
 import { MapPin, Navigation, Loader2, Search, Check, ChevronsUpDown, Sun, Moon } from "lucide-react";
 
 import { useCities, useTransportModes, useCalculateEstimate } from "@/hooks/use-travel";
@@ -170,8 +171,18 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-white/50"
           >
-            <h1 className="text-2xl font-display font-bold text-primary">TaxiFair</h1>
-            <p className="text-sm text-muted-foreground">Professional fare estimator for Casablanca</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-display font-bold text-primary">TaxiFair</h1>
+                <p className="text-sm text-muted-foreground">Professional fare estimator for Casablanca</p>
+              </div>
+              <Link
+                href="/pricing"
+                className="text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
+              >
+                Pricing
+              </Link>
+            </div>
           </motion.div>
 
           <motion.div

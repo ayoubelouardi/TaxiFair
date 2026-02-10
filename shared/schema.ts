@@ -1,60 +1,34 @@
-import { pgTable, text, uuid, varchar, boolean, jsonb, timestamp, integer, doublePrecision, pgEnum } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import { relations } from "drizzle-orm";
 
-// === ENUMS ===
-export const pricingStrategyEnum = pgEnum("pricing_strategy", ['METERED', 'FIXED_ZONE', 'HYBRID']);
+// === TYPES & SCHEMAS ===
 
-// === TABLE DEFINITIONS ===
-
-export const cities = pgTable("cities", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  name: varchar("name", { length: 255 }).notNull(),
-  slug: varchar("slug", { length: 255 }).notNull().unique(), // Added slug for easier lookup
-  currencyCode: varchar("currency_code", { length: 3 }).notNull(), // e.g. MAD
-  timezone: varchar("timezone", { length: 255 }).notNull(), // e.g. Africa/Casablanca
+export const citySchema = z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  slug: z.string(),
+  currencyCode: z.string(),
+  timezone: z.string(),
 });
 
-export const transportModes = pgTable("transport_modes", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  name: varchar("name", { length: 255 }).notNull(),
-  slug: varchar("slug", { length: 255 }).notNull().unique(), // e.g. petit_taxi_red
-  iconUrl: varchar("icon_url", { length: 500 }),
+export const transportModeSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  slug: z.string(),
+  iconUrl: z.string().nullable(),
 });
 
-export const pricingProfiles = pgTable("pricing_profiles", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  cityId: uuid("city_id").references(() => cities.id).notNull(),
-  modeId: uuid("mode_id").references(() => transportModes.id).notNull(),
-  pricingStrategy: pricingStrategyEnum("pricing_strategy").notNull().default('METERED'),
-  active: boolean("active").default(true).notNull(),
-  // JSONB to store specific rules like base_fare, minimum_fare, night_surcharge_percent, etc.
-  rulesConfig: jsonb("rules_config").$type<Record<string, any>>().notNull(), 
-  createdAt: timestamp("created_at").defaultNow(),
+export const pricingProfileSchema = z.object({
+  id: z.string().uuid(),
+  cityId: z.string().uuid(),
+  modeId: z.string().uuid(),
+  pricingStrategy: z.enum(['METERED', 'FIXED_ZONE', 'HYBRID']),
+  active: z.boolean(),
+  rulesConfig: z.record(z.any()),
 });
 
-// === RELATIONS ===
-export const pricingProfilesRelations = relations(pricingProfiles, ({ one }) => ({
-  city: one(cities, {
-    fields: [pricingProfiles.cityId],
-    references: [cities.id],
-  }),
-  mode: one(transportModes, {
-    fields: [pricingProfiles.modeId],
-    references: [transportModes.id],
-  }),
-}));
-
-// === ZOD SCHEMAS ===
-export const insertCitySchema = createInsertSchema(cities).omit({ id: true });
-export const insertTransportModeSchema = createInsertSchema(transportModes).omit({ id: true });
-export const insertPricingProfileSchema = createInsertSchema(pricingProfiles).omit({ id: true, createdAt: true });
-
-// === API TYPES ===
-export type City = typeof cities.$inferSelect;
-export type TransportMode = typeof transportModes.$inferSelect;
-export type PricingProfile = typeof pricingProfiles.$inferSelect;
+export type City = z.infer<typeof citySchema>;
+export type TransportMode = z.infer<typeof transportModeSchema>;
+export type PricingProfile = z.infer<typeof pricingProfileSchema>;
 
 // Request body for estimation
 export const estimateRequestSchema = z.object({
