@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&family=Readex+Pro:wght@400;500;600;700&display=swap');
 @import 'leaflet/dist/leaflet.css';
 
 @tailwind base;
@@ -6,39 +6,43 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: 'DM Sans', sans-serif;
-  --font-display: 'Outfit', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-arabic: 'Readex Pro', sans-serif;
 
-  /* Professional Travel Theme - Deep Blue & Vivid Accent */
-  --background: 210 40% 98%;
-  --foreground: 222 47% 11%;
+  /* Dalil Brand Theme - Navigator Indigo & Heritage Gold */
+  --background: 0 0% 96%; /* Static White #F5F5F5 */
+  --foreground: 234 66% 15%;
 
-  --primary: 221 83% 53%;
-  --primary-foreground: 210 40% 98%;
+  --primary: 234 66% 30%; /* Navigator Indigo #1A237E */
+  --primary-foreground: 0 0% 96%;
 
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
+  --secondary: 0 0% 93%;
+  --secondary-foreground: 234 66% 15%;
 
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
+  --muted: 0 0% 93%;
+  --muted-foreground: 234 20% 40%;
 
-  --accent: 346 87% 60%; /* Casablanca Red Taxi color */
-  --accent-foreground: 210 40% 98%;
+  --accent: 42 47% 57%; /* Heritage Gold #C5A059 */
+  --accent-foreground: 234 66% 15%;
+
+  --teal: 180 100% 25%; /* Zellige Teal #008080 */
+  --teal-foreground: 0 0% 96%;
 
   --destructive: 0 84% 60%;
-  --destructive-foreground: 210 40% 98%;
+  --destructive-foreground: 0 0% 96%;
 
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 221 83% 53%;
+  --border: 234 20% 88%;
+  --input: 234 20% 88%;
+  --ring: 234 66% 30%;
 
   --radius: 1rem;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
+  --popover-foreground: 234 66% 15%;
 
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 234 66% 15%;
 }
 
 @layer base {

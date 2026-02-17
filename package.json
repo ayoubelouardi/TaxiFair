@@ -1,5 +1,6 @@
 {
-  "name": "rest-express",
+  "name": "dalil",
+  "description": "Dalil (دليل) - A lightweight, client-side transportation pricing engine. Your city, decoded.",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",

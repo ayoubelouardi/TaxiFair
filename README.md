@@ -1,6 +1,16 @@
-# TaxiFair - Client-Side Price Estimator
+# Dalil (دليل) - Client-Side Price Estimator
 
-A lightweight, client-side transportation pricing engine. This application functions entirely without a backend or database, using local static data for fare calculations.
+> **"Your city, decoded."** | **"طريقك، بكل بساطة"**
+
+A lightweight, client-side transportation pricing engine. Dalil prioritizes speed, privacy, and cultural resonance, functioning entirely without a backend to provide instant fare calculations.
+
+## Brand Essence
+
+**Dalil (دليل)** means "Guide," "Proof," or "Evidence" in Arabic. It represents clarity in a complex city landscape.
+
+- **Privacy by Design:** No backend means user data never leaves their device
+- **Cultural Roots:** Deeply inspired by Arabic calligraphy and geometric art
+- **Zero Friction:** Lightweight, static, and instant
 
 ## 🚀 Getting Started
 

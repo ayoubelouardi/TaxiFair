@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { MapPin, Navigation, Loader2, Search, Check, ChevronsUpDown, Sun, Moon } from "lucide-react";
 
-import { useCities, useTransportModes, useCalculateEstimate } from "@/hooks/use-travel";
+import { useCities, useTransportModes, useCalculateEstimate, usePlaces } from "@/hooks/use-travel";
+import type { Place } from "@/data/places";
 import { MapBackground } from "@/components/MapBackground";
 import { EstimateCard } from "@/components/EstimateCard";
 import { Button } from "@/components/ui/button";
@@ -28,46 +29,6 @@ const formSchema = z.object({
   destLng: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid longitude"),
   isNight: z.boolean().default(false),
 });
-
-const DEMO_LOCATIONS = {
-  casablanca: {
-    "Casa Port": { lat: 33.5992, lng: -7.6192 },
-    "Morocco Mall": { lat: 33.5753, lng: -7.7061 },
-    "Hassan II Mosque": { lat: 33.6080, lng: -7.6324 },
-    "Technopark": { lat: 33.5504, lng: -7.6534 },
-    "Maarif": { lat: 33.5768, lng: -7.6366 },
-    "Anfa Place Shopping Center": { lat: 33.5983, lng: -7.6644 },
-    "Twin Center": { lat: 33.5878, lng: -7.6324 },
-    "Casablanca Finance City": { lat: 33.5670, lng: -7.6600 },
-    "Place des Nations Unies": { lat: 33.5954, lng: -7.6186 },
-    "Parc de la Ligue Arabe": { lat: 33.5870, lng: -7.6240 },
-    "Quartier Habous": { lat: 33.5750, lng: -7.6050 },
-    "Cathédrale du Sacré-Cœur": { lat: 33.5910, lng: -7.6210 },
-    "Villa des Arts": { lat: 33.5880, lng: -7.6310 },
-    "Museum of Moroccan Judaism": { lat: 33.5410, lng: -7.6520 },
-    "La Corniche": { lat: 33.5960, lng: -7.6650 },
-    "Ain Diab Beach": { lat: 33.5850, lng: -7.6950 },
-    "Derb Sultan": { lat: 33.5650, lng: -7.6050 },
-    "Gauthier": { lat: 33.5890, lng: -7.6290 },
-    "Palais Royal": { lat: 33.5760, lng: -7.6010 },
-    "Central Market": { lat: 33.5940, lng: -7.6140 },
-    "L'Oasis Station": { lat: 33.5550, lng: -7.6340 },
-    "Casa Voyageurs Station": { lat: 33.5890, lng: -7.5920 },
-    "Mohammed V International Airport": { lat: 33.3675, lng: -7.5898 },
-    "Sindibad Park": { lat: 33.5820, lng: -7.6850 },
-    "Club des Pins": { lat: 33.5990, lng: -7.6580 },
-    "Sidi Maarouf": { lat: 33.5350, lng: -7.6450 },
-    "Bouskoura Forest": { lat: 33.4650, lng: -7.6150 },
-    "Tamaris": { lat: 33.5250, lng: -7.8250 },
-    "Mohammedia": { lat: 33.6850, lng: -7.3850 },
-    "Mediouna": { lat: 33.4550, lng: -7.5150 },
-    "Dar Bouazza": { lat: 33.5150, lng: -7.8150 },
-    "Zenata": { lat: 33.6350, lng: -7.4950 },
-    "Tit Mellil": { lat: 33.5550, lng: -7.4750 },
-    "Nouaceur": { lat: 33.3550, lng: -7.5950 },
-    "Berrechid": { lat: 33.2650, lng: -7.5850 }
-  }
-};
 
 export default function Home() {
   const [selectedOrigin, setSelectedOrigin] = useState<{lat: number, lng: number} | undefined>();
@@ -92,6 +53,9 @@ export default function Home() {
       destLng: "-7.7061",
     },
   });
+
+  const selectedCity = form.watch("citySlug");
+  const { data: places = [], isLoading: loadingPlaces } = usePlaces(selectedCity);
 
   const handleMapClick = (lat: number, lng: number) => {
     if (selectionMode === 'origin') {
@@ -137,16 +101,18 @@ export default function Home() {
   };
 
   const setDemoLocation = (type: 'origin' | 'dest', name: string) => {
-    const coords = DEMO_LOCATIONS.casablanca[name as keyof typeof DEMO_LOCATIONS.casablanca];
+    const place = places.find(p => p.name === name);
+    if (!place) return;
+    
     if (type === 'origin') {
-      form.setValue("originLat", coords.lat.toString());
-      form.setValue("originLng", coords.lng.toString());
-      setSelectedOrigin(coords);
+      form.setValue("originLat", place.lat.toString());
+      form.setValue("originLng", place.lng.toString());
+      setSelectedOrigin({ lat: place.lat, lng: place.lng });
       setOriginName(name);
     } else {
-      form.setValue("destLat", coords.lat.toString());
-      form.setValue("destLng", coords.lng.toString());
-      setSelectedDest(coords);
+      form.setValue("destLat", place.lat.toString());
+      form.setValue("destLng", place.lng.toString());
+      setSelectedDest({ lat: place.lat, lng: place.lng });
       setDestName(name);
     }
   };
@@ -173,8 +139,8 @@ export default function Home() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-display font-bold text-primary">TaxiFair</h1>
-                <p className="text-sm text-muted-foreground">Professional fare estimator for Casablanca</p>
+                <h1 className="text-2xl font-display font-bold text-primary">Dalil <span className="font-arabic">دليل</span></h1>
+                <p className="text-sm text-muted-foreground">Your city, decoded</p>
               </div>
               <Link
                 href="/pricing"
@@ -287,6 +253,8 @@ export default function Home() {
                           <LocationSearch 
                             placeholder="Search or pick on map..."
                             selectedValue={originName}
+                            places={places}
+                            isLoading={loadingPlaces}
                             onSelect={(name) => setDemoLocation('origin', name)}
                             onPickOnMap={() => setSelectionMode('origin')}
                             isActive={selectionMode === 'origin'}
@@ -302,6 +270,8 @@ export default function Home() {
                           <LocationSearch 
                             placeholder="Search or pick on map..."
                             selectedValue={destName}
+                            places={places}
+                            isLoading={loadingPlaces}
                             onSelect={(name) => setDemoLocation('dest', name)}
                             onPickOnMap={() => setSelectionMode('destination')}
                             isActive={selectionMode === 'destination'}
@@ -344,7 +314,7 @@ export default function Home() {
       </div>
       
       <div className="hidden md:block absolute bottom-4 right-4 z-10 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs text-muted-foreground border border-white/50">
-        © {new Date().getFullYear()} TaxiFair. Map data © OpenStreetMap.
+        © {new Date().getFullYear()} Dalil. Map data © OpenStreetMap.
       </div>
     </div>
   );
@@ -353,18 +323,21 @@ export default function Home() {
 function LocationSearch({ 
   placeholder, 
   selectedValue,
+  places,
+  isLoading,
   onSelect, 
   onPickOnMap,
   isActive
 }: { 
   placeholder: string; 
   selectedValue: string;
+  places: Place[];
+  isLoading: boolean;
   onSelect: (name: string) => void; 
   onPickOnMap: () => void;
   isActive: boolean;
 }) {
   const [open, setOpen] = useState(false);
-  const locations = Object.keys(DEMO_LOCATIONS.casablanca);
 
   return (
     <div className="flex gap-2 w-full">
@@ -384,22 +357,29 @@ function LocationSearch({
           <Command>
             <CommandInput placeholder="Search location..." />
             <CommandList>
-              <CommandEmpty>No location found.</CommandEmpty>
-              <CommandGroup>
-                {locations.map((loc) => (
-                  <CommandItem
-                    key={loc}
-                    value={loc}
-                    onSelect={() => {
-                      onSelect(loc);
-                      setOpen(false);
-                    }}
-                  >
-                    <Check className={cn("mr-2 h-4 w-4 opacity-0")} />
-                    {loc}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+              {isLoading ? (
+                <div className="p-4 text-sm text-center text-muted-foreground">Loading places...</div>
+              ) : (
+                <>
+                  <CommandEmpty>No location found.</CommandEmpty>
+                  <CommandGroup>
+                    {places.map((place) => (
+                      <CommandItem
+                        key={place.name}
+                        value={place.name}
+                        onSelect={() => {
+                          onSelect(place.name);
+                          setOpen(false);
+                        }}
+                      >
+                        <Check className={cn("mr-2 h-4 w-4 opacity-0")} />
+                        <span>{place.name}</span>
+                        <span className="mr-auto text-xs text-muted-foreground font-arabic">{place.nameAr}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </>
+              )}
             </CommandList>
           </Command>
         </PopoverContent>

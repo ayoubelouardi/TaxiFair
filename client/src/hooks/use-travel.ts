@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { estimateFare } from "@/lib/estimate";
 import { getCities, getTransportModes } from "@/data/pricing";
+import { getPlacesByCity } from "@/data/places";
 import { estimateRequestSchema, type EstimateRequest, type EstimateResponse } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 
@@ -21,6 +22,17 @@ export function useTransportModes() {
     queryFn: async () => {
       return getTransportModes();
     },
+  });
+}
+
+// Fetch Places by City
+export function usePlaces(citySlug: string) {
+  return useQuery({
+    queryKey: ["local", "places", citySlug],
+    queryFn: async () => {
+      return getPlacesByCity(citySlug);
+    },
+    enabled: !!citySlug,
   });
 }
 
