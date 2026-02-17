@@ -1,6 +1,8 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Icon } from 'leaflet';
+import { Plus, Minus } from 'lucide-react';
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import markerIcon2xPng from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
@@ -56,10 +58,12 @@ function MapController({ origin, destination }: MapBackgroundProps) {
 
 function MapEventsHandler({ 
   onMapClick, 
-  onContextMenuSelect 
+  onContextMenuSelect,
+  portalTarget
 }: { 
   onMapClick?: (lat: number, lng: number) => void;
   onContextMenuSelect?: (lat: number, lng: number, type: 'origin' | 'destination') => void;
+  portalTarget: HTMLElement | null;
 }) {
   const [contextMenu, setContextMenu] = useState<{ lat: number; lng: number; x: number; y: number } | null>(null);
   const map = useMap();
@@ -72,15 +76,15 @@ function MapEventsHandler({
       }
     },
     contextmenu: (e) => {
-      // Use containerPoint for relative positioning within the map container
+      e.originalEvent.preventDefault();
       const { x, y } = e.containerPoint;
       setContextMenu({ lat: e.latlng.lat, lng: e.latlng.lng, x, y });
     },
   });
 
-  if (!contextMenu) return null;
+  if (!contextMenu || !portalTarget) return null;
 
-  return (
+  return createPortal(
     <div 
       className="absolute z-[2000] bg-white rounded-lg shadow-xl border border-slate-200 p-1 flex flex-col gap-1 min-w-[160px]"
       style={{
@@ -118,16 +122,17 @@ function MapEventsHandler({
       >
         Cancel
       </button>
-    </div>
+    </div>,
+    portalTarget
   );
 }
 
 export function MapBackground({ origin, destination, onMapClick, onContextMenuSelect, selectionMode }: MapBackgroundProps) {
-  // Casablanca default center
+  const containerRef = useRef<HTMLDivElement>(null);
   const defaultCenter = { lat: 33.5731, lng: -7.5898 };
 
   return (
-    <div className="absolute inset-0 z-0 bg-slate-100">
+    <div ref={containerRef} className="absolute inset-0 z-0 bg-slate-100">
       <MapContainer 
         center={[defaultCenter.lat, defaultCenter.lng]} 
         zoom={13} 
@@ -152,7 +157,11 @@ export function MapBackground({ origin, destination, onMapClick, onContextMenuSe
         )}
 
         <MapController origin={origin} destination={destination} />
-        <MapEventsHandler onMapClick={onMapClick} onContextMenuSelect={onContextMenuSelect} />
+        <MapEventsHandler 
+          onMapClick={onMapClick} 
+          onContextMenuSelect={onContextMenuSelect} 
+          portalTarget={containerRef.current}
+        />
       </MapContainer>
       
       {selectionMode && (
