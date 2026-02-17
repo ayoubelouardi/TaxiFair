@@ -1,0 +1,488 @@
+{
+    "success": true,
+    "message": "result returned successflly!",
+    "data": {
+        "busList": [
+            {
+                "routeId": "1",
+                "routeShortName": "L001",
+                "routeColor": "FF00CC",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "5",
+                "routeShortName": "L005",
+                "routeColor": "330033",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "6",
+                "routeShortName": "L006",
+                "routeColor": "FF0000",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "7",
+                "routeShortName": "L007",
+                "routeColor": "009999",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "9E",
+                "routeShortName": "L09E",
+                "routeColor": "0033FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "11",
+                "routeShortName": "L011",
+                "routeColor": "070000",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "13",
+                "routeShortName": "L013",
+                "routeColor": "1FE6E6",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "19",
+                "routeShortName": "L019",
+                "routeColor": "009900",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "20",
+                "routeShortName": "L020",
+                "routeColor": "FF8300",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "22",
+                "routeShortName": "L022",
+                "routeColor": "6D2020",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "23",
+                "routeShortName": "L023",
+                "routeColor": "FF0033",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "31",
+                "routeShortName": "L031",
+                "routeColor": "3333FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "32D",
+                "routeShortName": "L32D",
+                "routeColor": "008C6A",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "33",
+                "routeShortName": "L033",
+                "routeColor": "BDCC00",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "38",
+                "routeShortName": "L038",
+                "routeColor": "009933",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "39",
+                "routeShortName": "L039",
+                "routeColor": "008349",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "40",
+                "routeShortName": "L040",
+                "routeColor": "3300FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "43",
+                "routeShortName": "L043",
+                "routeColor": "FF0066",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "50",
+                "routeShortName": "L050",
+                "routeColor": "990033",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "51",
+                "routeShortName": "L051",
+                "routeColor": "3333FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "55",
+                "routeShortName": "L055",
+                "routeColor": "296810",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "56",
+                "routeShortName": "L056",
+                "routeColor": "3300FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "60",
+                "routeShortName": "L060",
+                "routeColor": "FF0033",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "62",
+                "routeShortName": "L062",
+                "routeColor": "FF0033",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "63",
+                "routeShortName": "L063",
+                "routeColor": "FF00CC",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "64",
+                "routeShortName": "L064",
+                "routeColor": "CC0033",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "65",
+                "routeShortName": "L065",
+                "routeColor": "3300FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "67",
+                "routeShortName": "L067",
+                "routeColor": "FF0066",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "68",
+                "routeShortName": "L068",
+                "routeColor": "FF00FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "72",
+                "routeShortName": "L072",
+                "routeColor": "04DAF3",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "79",
+                "routeShortName": "L079",
+                "routeColor": "226D56",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "82",
+                "routeShortName": "L082",
+                "routeColor": "8DB0F1",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "84",
+                "routeShortName": "L084",
+                "routeColor": "0033FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "90",
+                "routeShortName": "L090",
+                "routeColor": "EB2D47",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "97",
+                "routeShortName": "L097",
+                "routeColor": "EE8514",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "97B",
+                "routeShortName": "L97B",
+                "routeColor": "3300CC",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "107",
+                "routeShortName": "L107",
+                "routeColor": "330033",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "109",
+                "routeShortName": "L109",
+                "routeColor": "0C6A6D",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "120",
+                "routeShortName": "L120",
+                "routeColor": "FF7420",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "139",
+                "routeShortName": "L139",
+                "routeColor": "3333FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "143",
+                "routeShortName": "L143",
+                "routeColor": "FD547C",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "300",
+                "routeShortName": "L300",
+                "routeColor": "28FF19",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "301",
+                "routeShortName": "L301",
+                "routeColor": "00FF23",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "306",
+                "routeShortName": "L306",
+                "routeColor": "FF00F6",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "307",
+                "routeShortName": "L307",
+                "routeColor": "000000",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "309",
+                "routeShortName": "L309",
+                "routeColor": "0033FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "310",
+                "routeShortName": "L310",
+                "routeColor": "D20F1C",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "312",
+                "routeShortName": "L312",
+                "routeColor": "040404",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "600",
+                "routeShortName": "L600",
+                "routeColor": "00A9FF",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "604",
+                "routeShortName": "L604",
+                "routeColor": "E84578",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "606",
+                "routeShortName": "L606",
+                "routeColor": "6600FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "608",
+                "routeShortName": "L608",
+                "routeColor": "FF001A",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "800",
+                "routeShortName": "L800",
+                "routeColor": "3300FF",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "900",
+                "routeShortName": "L900",
+                "routeColor": "FF0099",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "902",
+                "routeShortName": "L902",
+                "routeColor": "FF0000",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "903",
+                "routeShortName": "L903",
+                "routeColor": "6600CC",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "904",
+                "routeShortName": "L904",
+                "routeColor": "1C7A11",
+                "routeTextColor": "FFFFFF",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "905",
+                "routeShortName": "L905",
+                "routeColor": "00EDFF",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "906",
+                "routeShortName": "L906",
+                "routeColor": "02FC1C",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            },
+            {
+                "routeId": "907",
+                "routeShortName": "L907",
+                "routeColor": "959540",
+                "routeTextColor": "000000",
+                "departureStop": null,
+                "arrivalStop": null
+            }
+        ]
+    }
+}
