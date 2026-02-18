@@ -1,0 +1,52 @@
+{
+  "app": {
+    "name": "Dalil",
+    "tagline": "Your city, decoded",
+    "copyright": "© {{year}} Dalil. Map data © OpenStreetMap."
+  },
+  "nav": {
+    "pricing": "Pricing"
+  },
+  "home": {
+    "title": "Get an Estimate",
+    "description": "Enter your trip details below",
+    "city": "City",
+    "selectCity": "Select City",
+    "mode": "Mode",
+    "selectMode": "Transport",
+    "nightPricing": "Night Pricing",
+    "nightPricingDescription": "Toggle night rate surcharge",
+    "origin": "Origin",
+    "destination": "Destination",
+    "searchPlaceholder": "Search or pick on map...",
+    "pickOnMap": "Pick on map",
+    "calculateFare": "Calculate Fare",
+    "calculating": "Calculating...",
+    "selectAsOrigin": "Select as Origin",
+    "selectAsDestination": "Select as Destination",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "loadingPlaces": "Loading places...",
+    "noLocationFound": "No location found.",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "clickToSelectOrigin": "Click on map to select origin",
+    "clickToSelectDestination": "Click on map to select destination"
+  },
+  "pricing": {
+    "title": "Pricing & Transport",
+    "header": "Pricing"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "errors": {
+    "calculationFailed": "Calculation Failed",
+    "selectCity": "Please select a city",
+    "selectMode": "Please select a transport mode",
+    "invalidLatitude": "Invalid latitude",
+    "invalidLongitude": "Invalid longitude"
+  }
+}

@@ -79,3 +79,92 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
 }
+
+/* RTL Support */
+[dir="rtl"] {
+  font-family: var(--font-arabic), var(--font-sans);
+}
+
+[dir="rtl"] .font-arabic {
+  font-family: var(--font-arabic);
+}
+
+/* Logical properties for RTL support */
+[dir="rtl"] .start-0 {
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] .end-0 {
+  left: 0;
+  right: auto;
+}
+
+[dir="rtl"] .start-1\/2 {
+  right: 50%;
+  left: auto;
+}
+
+[dir="rtl"] .end-1\/2 {
+  left: 50%;
+  right: auto;
+}
+
+[dir="rtl"] .start-4 {
+  right: 1rem;
+  left: auto;
+}
+
+[dir="rtl"] .end-4 {
+  left: 1rem;
+  right: auto;
+}
+
+[dir="rtl"] .start-6 {
+  right: 1.5rem;
+  left: auto;
+}
+
+[dir="rtl"] .end-6 {
+  left: 1.5rem;
+  right: auto;
+}
+
+/* Text alignment for RTL */
+[dir="rtl"] .text-start {
+  text-align: right;
+}
+
+[dir="rtl"] .text-end {
+  text-align: left;
+}
+
+/* Margin logical properties */
+[dir="rtl"] .me-2 {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+[dir="rtl"] .ms-2 {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+[dir="rtl"] .me-auto {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+[dir="rtl"] .ms-auto {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+/* Flex direction for RTL */
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row;
+}

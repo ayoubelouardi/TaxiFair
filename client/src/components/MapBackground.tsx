@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Icon } from 'leaflet';
 import { Plus, Minus } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import markerIcon2xPng from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
@@ -56,6 +57,38 @@ function MapController({ origin, destination }: MapBackgroundProps) {
   return null;
 }
 
+function ZoomControls() {
+  const map = useMap();
+  const { t } = useTranslation();
+
+  const handleZoomIn = () => {
+    map.zoomIn();
+  };
+
+  const handleZoomOut = () => {
+    map.zoomOut();
+  };
+
+  return (
+    <div className="absolute bottom-6 end-6 z-[1000] flex flex-col gap-2">
+      <button
+        onClick={handleZoomIn}
+        className="w-10 h-10 bg-white rounded-lg shadow-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors"
+        title={t('home.zoomIn', { defaultValue: 'Zoom in' })}
+      >
+        <Plus className="w-5 h-5 text-primary" />
+      </button>
+      <button
+        onClick={handleZoomOut}
+        className="w-10 h-10 bg-white rounded-lg shadow-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors"
+        title={t('home.zoomOut', { defaultValue: 'Zoom out' })}
+      >
+        <Minus className="w-5 h-5 text-primary" />
+      </button>
+    </div>
+  );
+}
+
 function MapEventsHandler({ 
   onMapClick, 
   onContextMenuSelect,
@@ -67,6 +100,7 @@ function MapEventsHandler({
 }) {
   const [contextMenu, setContextMenu] = useState<{ lat: number; lng: number; x: number; y: number } | null>(null);
   const map = useMap();
+  const { t } = useTranslation();
 
   useMapEvents({
     click: (e) => {
@@ -99,10 +133,10 @@ function MapEventsHandler({
           onContextMenuSelect?.(contextMenu.lat, contextMenu.lng, 'origin');
           setContextMenu(null);
         }}
-        className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 rounded-md text-sm font-medium transition-colors text-left"
+        className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 rounded-md text-sm font-medium transition-colors text-start"
       >
         <div className="w-2 h-2 rounded-full bg-primary" />
-        Select as Origin
+        {t('home.selectAsOrigin')}
       </button>
       <button
         onClick={(e) => {
@@ -110,26 +144,44 @@ function MapEventsHandler({
           onContextMenuSelect?.(contextMenu.lat, contextMenu.lng, 'destination');
           setContextMenu(null);
         }}
-        className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 rounded-md text-sm font-medium transition-colors text-left"
+        className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 rounded-md text-sm font-medium transition-colors text-start"
       >
         <div className="w-2 h-2 rounded-full bg-accent" />
-        Select as Destination
+        {t('home.selectAsDestination')}
       </button>
       <div className="h-px bg-slate-100 my-1" />
       <button
         onClick={() => setContextMenu(null)}
         className="px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground text-center"
       >
-        Cancel
+        {t('home.cancel')}
       </button>
     </div>,
     portalTarget
   );
 }
 
+function SelectionModeOverlay({ selectionMode }: { selectionMode?: 'origin' | 'destination' | null }) {
+  const { t } = useTranslation();
+  
+  if (!selectionMode) return null;
+  
+  return (
+    <div className="absolute top-4 start-1/2 -translate-x-1/2 z-[1000] pointer-events-none">
+      <div className="bg-primary text-white px-4 py-2 rounded-full shadow-lg font-medium animate-pulse">
+        {selectionMode === 'origin' 
+          ? t('home.clickToSelectOrigin', { defaultValue: 'Click on map to select origin' })
+          : t('home.clickToSelectDestination', { defaultValue: 'Click on map to select destination' })
+        }
+      </div>
+    </div>
+  );
+}
+
 export function MapBackground({ origin, destination, onMapClick, onContextMenuSelect, selectionMode }: MapBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const defaultCenter = { lat: 33.5731, lng: -7.5898 };
+  const { t } = useTranslation();
 
   return (
     <div ref={containerRef} className="absolute inset-0 z-0 bg-slate-100">
@@ -146,13 +198,13 @@ export function MapBackground({ origin, destination, onMapClick, onContextMenuSe
         
         {origin && (
           <Marker position={[origin.lat, origin.lng]} icon={originIcon}>
-            <Popup>Origin</Popup>
+            <Popup>{t('home.origin')}</Popup>
           </Marker>
         )}
 
         {destination && (
           <Marker position={[destination.lat, destination.lng]} icon={destinationIcon}>
-            <Popup>Destination</Popup>
+            <Popup>{t('home.destination')}</Popup>
           </Marker>
         )}
 
@@ -162,15 +214,10 @@ export function MapBackground({ origin, destination, onMapClick, onContextMenuSe
           onContextMenuSelect={onContextMenuSelect} 
           portalTarget={containerRef.current}
         />
+        <ZoomControls />
       </MapContainer>
       
-      {selectionMode && (
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] pointer-events-none">
-          <div className="bg-primary text-white px-4 py-2 rounded-full shadow-lg font-medium animate-pulse">
-            Click on map to select {selectionMode}
-          </div>
-        </div>
-      )}
+      <SelectionModeOverlay selectionMode={selectionMode} />
 
       {/* Subtle overlay gradient to make text legible if placed on top */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/10 to-transparent z-[11]" />

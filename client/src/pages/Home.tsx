@@ -1,36 +1,28 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
-import { MapPin, Navigation, Loader2, Search, Check, ChevronsUpDown, Sun, Moon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { MapPin, Loader2, Check, ChevronsUpDown } from "lucide-react";
 
 import { useCities, useTransportModes, useCalculateEstimate, usePlaces } from "@/hooks/use-travel";
 import type { Place } from "@/data/places";
 import { MapBackground } from "@/components/MapBackground";
 import { EstimateCard } from "@/components/EstimateCard";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
-const formSchema = z.object({
-  citySlug: z.string().min(1, "Please select a city"),
-  modeSlug: z.string().min(1, "Please select a transport mode"),
-  originLat: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid latitude"),
-  originLng: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid longitude"),
-  destLat: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid latitude"),
-  destLng: z.string().refine((val) => !isNaN(parseFloat(val)), "Invalid longitude"),
-  isNight: z.boolean().default(false),
-});
-
 export default function Home() {
+  const { t, i18n } = useTranslation();
   const [selectedOrigin, setSelectedOrigin] = useState<{lat: number, lng: number} | undefined>();
   const [selectedDest, setSelectedDest] = useState<{lat: number, lng: number} | undefined>();
   const [selectionMode, setSelectionMode] = useState<'origin' | 'destination' | null>(null);
@@ -41,6 +33,16 @@ export default function Home() {
   const { data: cities, isLoading: loadingCities } = useCities();
   const { data: modes, isLoading: loadingModes } = useTransportModes();
   const estimateMutation = useCalculateEstimate();
+
+  const formSchema = z.object({
+    citySlug: z.string().min(1, t('errors.selectCity')),
+    modeSlug: z.string().min(1, t('errors.selectMode')),
+    originLat: z.string().refine((val) => !isNaN(parseFloat(val)), t('errors.invalidLatitude')),
+    originLng: z.string().refine((val) => !isNaN(parseFloat(val)), t('errors.invalidLongitude')),
+    destLat: z.string().refine((val) => !isNaN(parseFloat(val)), t('errors.invalidLatitude')),
+    destLng: z.string().refine((val) => !isNaN(parseFloat(val)), t('errors.invalidLongitude')),
+    isNight: z.boolean().default(false),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -117,8 +119,10 @@ export default function Home() {
     }
   };
 
+  const isRTL = i18n.language === 'ar';
+
   return (
-    <div className="relative w-full h-screen overflow-hidden flex flex-col md:flex-row">
+    <div className="relative w-full h-screen overflow-hidden flex flex-col md:flex-row" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="absolute inset-0 w-full h-full">
         <MapBackground 
           origin={selectedOrigin} 
@@ -139,15 +143,20 @@ export default function Home() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-display font-bold text-primary">Dalil <span className="font-arabic">دليل</span></h1>
-                <p className="text-sm text-muted-foreground">Your city, decoded</p>
+                <h1 className="text-2xl font-display font-bold text-primary">
+                  {t('app.name')} <span className="font-arabic">دليل</span>
+                </h1>
+                <p className="text-sm text-muted-foreground">{t('app.tagline')}</p>
               </div>
-              <Link
-                href="/pricing"
-                className="text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
-              >
-                Pricing
-              </Link>
+              <div className="flex items-center gap-2">
+                <LanguageSwitcher />
+                <Link
+                  href="/pricing"
+                  className="text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
+                >
+                  {t('nav.pricing')}
+                </Link>
+              </div>
             </div>
           </motion.div>
 
@@ -158,8 +167,8 @@ export default function Home() {
           >
             <Card className="shadow-xl border-white/50 bg-white/95 backdrop-blur">
               <CardHeader className="pb-4">
-                <CardTitle className="text-lg">Get an Estimate</CardTitle>
-                <CardDescription>Enter your trip details below</CardDescription>
+                <CardTitle className="text-lg">{t('home.title')}</CardTitle>
+                <CardDescription>{t('home.description')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Form {...form}>
@@ -171,16 +180,18 @@ export default function Home() {
                         name="citySlug"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-xs uppercase font-semibold text-muted-foreground">City</FormLabel>
+                            <FormLabel className="text-xs uppercase font-semibold text-muted-foreground">
+                              {t('home.city')}
+                            </FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger className="bg-slate-50 border-slate-200">
-                                  <SelectValue placeholder="Select City" />
+                                  <SelectValue placeholder={t('home.selectCity')} />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
                                 {loadingCities ? (
-                                  <div className="p-2 text-xs text-center text-muted-foreground">Loading...</div>
+                                  <div className="p-2 text-xs text-center text-muted-foreground">{t('home.loading')}</div>
                                 ) : (
                                   cities?.map(city => (
                                     <SelectItem key={city.id} value={city.slug}>{city.name}</SelectItem>
@@ -198,16 +209,18 @@ export default function Home() {
                         name="modeSlug"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-xs uppercase font-semibold text-muted-foreground">Mode</FormLabel>
+                            <FormLabel className="text-xs uppercase font-semibold text-muted-foreground">
+                              {t('home.mode')}
+                            </FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger className="bg-slate-50 border-slate-200">
-                                  <SelectValue placeholder="Transport" />
+                                  <SelectValue placeholder={t('home.selectMode')} />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
                                 {loadingModes ? (
-                                  <div className="p-2 text-xs text-center text-muted-foreground">Loading...</div>
+                                  <div className="p-2 text-xs text-center text-muted-foreground">{t('home.loading')}</div>
                                 ) : (
                                   modes?.map(mode => (
                                     <SelectItem key={mode.id} value={mode.slug}>{mode.name}</SelectItem>
@@ -223,8 +236,8 @@ export default function Home() {
 
                     <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-sm font-medium">Night Pricing</FormLabel>
-                        <p className="text-xs text-muted-foreground">Toggle night rate surcharge</p>
+                        <FormLabel className="text-sm font-medium">{t('home.nightPricing')}</FormLabel>
+                        <p className="text-xs text-muted-foreground">{t('home.nightPricingDescription')}</p>
                       </div>
                       <FormField
                         control={form.control}
@@ -247,34 +260,36 @@ export default function Home() {
                     <div className="space-y-3">
                       <div className="space-y-2">
                         <FormLabel className="flex items-center gap-2 text-sm font-medium">
-                          <div className="w-2 h-2 rounded-full bg-primary" /> Origin
+                          <div className="w-2 h-2 rounded-full bg-primary" /> {t('home.origin')}
                         </FormLabel>
                         <div className="flex gap-2">
                           <LocationSearch 
-                            placeholder="Search or pick on map..."
+                            placeholder={t('home.searchPlaceholder')}
                             selectedValue={originName}
                             places={places}
                             isLoading={loadingPlaces}
                             onSelect={(name) => setDemoLocation('origin', name)}
                             onPickOnMap={() => setSelectionMode('origin')}
                             isActive={selectionMode === 'origin'}
+                            t={t}
                           />
                         </div>
                       </div>
 
                       <div className="space-y-2">
                         <FormLabel className="flex items-center gap-2 text-sm font-medium">
-                          <div className="w-2 h-2 rounded-full bg-accent" /> Destination
+                          <div className="w-2 h-2 rounded-full bg-accent" /> {t('home.destination')}
                         </FormLabel>
                         <div className="flex gap-2">
                           <LocationSearch 
-                            placeholder="Search or pick on map..."
+                            placeholder={t('home.searchPlaceholder')}
                             selectedValue={destName}
                             places={places}
                             isLoading={loadingPlaces}
                             onSelect={(name) => setDemoLocation('dest', name)}
                             onPickOnMap={() => setSelectionMode('destination')}
                             isActive={selectionMode === 'destination'}
+                            t={t}
                           />
                         </div>
                       </div>
@@ -288,10 +303,10 @@ export default function Home() {
                       {estimateMutation.isPending ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Calculating...
+                          {t('home.calculating')}
                         </>
                       ) : (
-                        "Calculate Fare"
+                        t('home.calculateFare')
                       )}
                     </Button>
                   </form>
@@ -313,8 +328,8 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="hidden md:block absolute bottom-4 right-4 z-10 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs text-muted-foreground border border-white/50">
-        © {new Date().getFullYear()} Dalil. Map data © OpenStreetMap.
+      <div className="hidden md:block absolute bottom-4 right-4 z-[5] bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs text-muted-foreground border border-white/50">
+        {t('app.copyright', { year: new Date().getFullYear() })}
       </div>
     </div>
   );
@@ -327,7 +342,8 @@ function LocationSearch({
   isLoading,
   onSelect, 
   onPickOnMap,
-  isActive
+  isActive,
+  t,
 }: { 
   placeholder: string; 
   selectedValue: string;
@@ -336,6 +352,7 @@ function LocationSearch({
   onSelect: (name: string) => void; 
   onPickOnMap: () => void;
   isActive: boolean;
+  t: (key: string) => string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -355,13 +372,13 @@ function LocationSearch({
         </PopoverTrigger>
         <PopoverContent className="w-[300px] p-0" align="start">
           <Command>
-            <CommandInput placeholder="Search location..." />
+            <CommandInput placeholder={t('home.searchPlaceholder')} />
             <CommandList>
               {isLoading ? (
-                <div className="p-4 text-sm text-center text-muted-foreground">Loading places...</div>
+                <div className="p-4 text-sm text-center text-muted-foreground">{t('home.loadingPlaces')}</div>
               ) : (
                 <>
-                  <CommandEmpty>No location found.</CommandEmpty>
+                  <CommandEmpty>{t('home.noLocationFound')}</CommandEmpty>
                   <CommandGroup>
                     {places.map((place) => (
                       <CommandItem
@@ -390,7 +407,7 @@ function LocationSearch({
         size="icon"
         className={cn("shrink-0", isActive && "animate-pulse")}
         onClick={onPickOnMap}
-        title="Pick on map"
+        title={t('home.pickOnMap')}
       >
         <MapPin className="h-4 w-4" />
       </Button>

@@ -1,0 +1,52 @@
+{
+  "app": {
+    "name": "Dalil",
+    "tagline": "Votre ville, décodée",
+    "copyright": "© {{year}} Dalil. Données cartographiques © OpenStreetMap."
+  },
+  "nav": {
+    "pricing": "Tarifs"
+  },
+  "home": {
+    "title": "Obtenir une Estimation",
+    "description": "Entrez les détails de votre trajet ci-dessous",
+    "city": "Ville",
+    "selectCity": "Sélectionner une ville",
+    "mode": "Mode",
+    "selectMode": "Transport",
+    "nightPricing": "Tarif Nuit",
+    "nightPricingDescription": "Activer le supplément tarifaire de nuit",
+    "origin": "Départ",
+    "destination": "Destination",
+    "searchPlaceholder": "Rechercher ou choisir sur la carte...",
+    "pickOnMap": "Choisir sur la carte",
+    "calculateFare": "Calculer le Tarif",
+    "calculating": "Calcul en cours...",
+    "selectAsOrigin": "Sélectionner comme Départ",
+    "selectAsDestination": "Sélectionner comme Destination",
+    "cancel": "Annuler",
+    "loading": "Chargement...",
+    "loadingPlaces": "Chargement des lieux...",
+    "noLocationFound": "Aucun lieu trouvé.",
+    "zoomIn": "Zoom avant",
+    "zoomOut": "Zoom arrière",
+    "clickToSelectOrigin": "Cliquez sur la carte pour sélectionner le départ",
+    "clickToSelectDestination": "Cliquez sur la carte pour sélectionner la destination"
+  },
+  "pricing": {
+    "title": "Tarifs & Transport",
+    "header": "Tarifs"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "errors": {
+    "calculationFailed": "Échec du Calcul",
+    "selectCity": "Veuillez sélectionner une ville",
+    "selectMode": "Veuillez sélectionner un mode de transport",
+    "invalidLatitude": "Latitude invalide",
+    "invalidLongitude": "Longitude invalide"
+  }
+}

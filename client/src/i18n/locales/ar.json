@@ -1,0 +1,52 @@
+{
+  "app": {
+    "name": "دليل",
+    "tagline": "طريقك، بكل بساطة",
+    "copyright": "© {{year}} دليل. بيانات الخريطة © OpenStreetMap."
+  },
+  "nav": {
+    "pricing": "الأسعار"
+  },
+  "home": {
+    "title": "احصل على تقدير",
+    "description": "أدخل تفاصيل رحلتك أدناه",
+    "city": "المدينة",
+    "selectCity": "اختر المدينة",
+    "mode": "الوسيلة",
+    "selectMode": "النقل",
+    "nightPricing": "التسعير الليلي",
+    "nightPricingDescription": "تفعيل رسوم الليل الإضافية",
+    "origin": "نقطة الانطلاق",
+    "destination": "الوجهة",
+    "searchPlaceholder": "ابحث أو اختر من الخريطة...",
+    "pickOnMap": "اختر من الخريطة",
+    "calculateFare": "احسب الأجرة",
+    "calculating": "جاري الحساب...",
+    "selectAsOrigin": "تحديد كنقطة انطلاق",
+    "selectAsDestination": "تحديد كوجهة",
+    "cancel": "إلغاء",
+    "loading": "جاري التحميل...",
+    "loadingPlaces": "جاري تحميل الأماكن...",
+    "noLocationFound": "لم يتم العثور على موقع.",
+    "zoomIn": "تكبير",
+    "zoomOut": "تصغير",
+    "clickToSelectOrigin": "انقر على الخريطة لتحديد نقطة الانطلاق",
+    "clickToSelectDestination": "انقر على الخريطة لتحديد الوجهة"
+  },
+  "pricing": {
+    "title": "الأسعار والنقل",
+    "header": "الأسعار"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "errors": {
+    "calculationFailed": "فشل الحساب",
+    "selectCity": "الرجاء اختيار مدينة",
+    "selectMode": "الرجاء اختيار وسيلة نقل",
+    "invalidLatitude": "خط العرض غير صالح",
+    "invalidLongitude": "خط الطول غير صالح"
+  }
+}
