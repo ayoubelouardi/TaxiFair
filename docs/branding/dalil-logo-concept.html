@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dalil — Logo Concept</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Readex+Pro:wght@300;400;600;700&family=Montserrat:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --indigo: #1A237E;
+    --gold: #C5A059;
+    --white: #F5F5F5;
+    --teal: #008080;
+    --indigo-light: #2a3a9e;
+    --gold-muted: rgba(197,160,89,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d1240;
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Geometric background pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(197,160,89,0.03) 0px, rgba(197,160,89,0.03) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(-45deg, rgba(197,160,89,0.03) 0px, rgba(197,160,89,0.03) 1px, transparent 1px, transparent 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 80px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .brand-label {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .header h1 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(48px, 10vw, 90px);
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .header h1 span {
+    color: var(--gold);
+  }
+
+  .subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: rgba(245,245,245,0.5);
+    margin-top: 12px;
+  }
+
+  /* Logo showcase */
+  .logo-showcase {
+    background: var(--indigo);
+    border-radius: 24px;
+    padding: 60px 40px;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    border: 1px solid rgba(197,160,89,0.2);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(197,160,89,0.1);
+    animation: fadeUp 0.8s 0.2s ease both;
+    flex-wrap: wrap;
+  }
+
+  /* SVG Logo Mark */
+  .logo-mark {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .logo-mark svg {
+    width: 160px;
+    height: 160px;
+    filter: drop-shadow(0 0 30px rgba(197,160,89,0.3));
+  }
+
+  .logo-wordmark {
+    text-align: right;
+  }
+
+  .logo-wordmark .arabic {
+    font-family: 'Amiri', serif;
+    font-size: 52px;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+    direction: rtl;
+  }
+
+  .logo-wordmark .latin {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-top: 6px;
+  }
+
+  .logo-wordmark .tagline {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 10px;
+    color: rgba(245,245,245,0.35);
+    letter-spacing: 2px;
+    display: block;
+    margin-top: 10px;
+    direction: rtl;
+    font-weight: 300;
+  }
+
+  /* Divider */
+  .logo-divider {
+    width: 1px;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(197,160,89,0.4), transparent);
+  }
+
+  /* Annotation sections */
+  .section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0,128,128,0.4), transparent);
+  }
+
+  /* Anatomy cards */
+  .anatomy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .anatomy-card {
+    background: rgba(26,35,126,0.4);
+    border: 1px solid rgba(197,160,89,0.12);
+    border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+
+  .anatomy-card:hover {
+    border-color: rgba(197,160,89,0.4);
+    transform: translateY(-3px);
+  }
+
+  .anatomy-card .icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .anatomy-card h3 {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .anatomy-card p {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(245,245,245,0.65);
+  }
+
+  .anatomy-card .arabic-demo {
+    font-family: 'Amiri', serif;
+    font-size: 36px;
+    color: var(--white);
+    direction: rtl;
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  /* Color palette */
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .swatch {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.3s;
+  }
+
+  .swatch:hover { transform: scale(1.03); }
+
+  .swatch-color {
+    height: 80px;
+    position: relative;
+  }
+
+  .swatch-color::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+  }
+
+  .swatch-info {
+    background: rgba(26,35,126,0.5);
+    padding: 12px;
+  }
+
+  .swatch-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--white);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .swatch-hex {
+    font-size: 10px;
+    font-family: 'Readex Pro', sans-serif;
+    color: rgba(245,245,245,0.4);
+    letter-spacing: 1px;
+  }
+
+  .swatch-role {
+    font-size: 9px;
+    color: rgba(245,245,245,0.35);
+    margin-top: 2px;
+    display: block;
+    font-style: italic;
+  }
+
+  /* Meaning strip */
+  .meaning-strip {
+    background: linear-gradient(135deg, rgba(197,160,89,0.08), rgba(0,128,128,0.08));
+    border: 1px solid rgba(197,160,89,0.15);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .meaning-word {
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .meaning-word .arabic-big {
+    font-family: 'Amiri', serif;
+    font-size: 48px;
+    color: var(--gold);
+    direction: rtl;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .meaning-word .translation {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,245,245,0.5);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .meaning-sep {
+    width: 1px;
+    height: 60px;
+    background: rgba(197,160,89,0.2);
+    flex-shrink: 0;
+  }
+
+  .meaning-desc {
+    flex: 3;
+    min-width: 200px;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(245,245,245,0.7);
+  }
+
+  .meaning-desc strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Construction diagram */
+  .construction {
+    background: rgba(26,35,126,0.3);
+    border: 1px solid rgba(197,160,89,0.1);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .construction svg {
+    width: 200px;
+    height: 200px;
+  }
+
+  .construction-notes {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .note-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .note-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .note-item p {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(245,245,245,0.7);
+  }
+
+  .note-item p strong {
+    font-weight: 600;
+    color: var(--white);
+    display: block;
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding-top: 48px;
+    border-top: 1px solid rgba(197,160,89,0.1);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .footer .arabic-tagline {
+    font-family: 'Amiri', serif;
+    font-size: 24px;
+    color: var(--gold);
+    direction: rtl;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .footer .eng-tagline {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(245,245,245,0.3);
+    font-weight: 300;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .palette { grid-template-columns: repeat(2, 1fr); }
+    .logo-divider { display: none; }
+    .logo-wordmark { text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="brand-label">Brand Identity Document</span>
+    <h1>دليل <span>·</span> Dalil</h1>
+    <p class="subtitle">Minimalist Tech, Timeless Guidance</p>
+  </div>
+
+  <!-- Logo Showcase -->
+  <div class="logo-showcase">
+    <!-- SVG Logo Mark: Geometric Kufic "Dal" (د) with nuqta as map pin -->
+    <div class="logo-mark">
+      <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer circle guide (subtle) -->
+        <circle cx="80" cy="80" r="72" stroke="rgba(197,160,89,0.08)" stroke-width="1"/>
+        <!-- Road/path arc mimicking the Dal curve -->
+        <path d="M 30 100 Q 30 45 80 45 Q 130 45 130 80 Q 130 110 100 115 L 30 115 Z"
+              fill="none" stroke="#C5A059" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Inner road lane line -->
+        <path d="M 50 100 Q 50 65 80 65 Q 110 65 110 82"
+              fill="none" stroke="rgba(197,160,89,0.25)" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round"/>
+        <!-- Base horizontal stroke of Dal -->
+        <line x1="28" y1="115" x2="102" y2="115" stroke="#C5A059" stroke-width="5" stroke-linecap="round"/>
+        <!-- Nuqta as map destination pin -->
+        <circle cx="80" cy="38" r="7" fill="#008080"/>
+        <circle cx="80" cy="38" r="3" fill="#F5F5F5"/>
+        <!-- Pin drop shadow glow -->
+        <circle cx="80" cy="38" r="11" fill="none" stroke="rgba(0,128,128,0.3)" stroke-width="1.5"/>
+        <!-- Corner geometric accent -->
+        <rect x="112" y="108" width="16" height="16" rx="3" fill="rgba(197,160,89,0.12)" stroke="rgba(197,160,89,0.3)" stroke-width="1"/>
+        <line x1="112" y1="116" x2="128" y2="116" stroke="rgba(197,160,89,0.4)" stroke-width="1"/>
+        <line x1="120" y1="108" x2="120" y2="124" stroke="rgba(197,160,89,0.4)" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="logo-divider"></div>
+
+    <div class="logo-wordmark">
+      <span class="arabic">دليل</span>
+      <span class="latin">Dalil</span>
+      <span class="tagline">طريقك، بكل بساطة</span>
+    </div>
+  </div>
+
+  <!-- Word Meaning -->
+  <div class="meaning-strip">
+    <div class="meaning-word">
+      <span class="arabic-big">دليل</span>
+      <span class="translation">Dalil</span>
+    </div>
+    <div class="meaning-sep"></div>
+    <p class="meaning-desc">
+      In Arabic, <strong>دليل (Dalil)</strong> carries three layered meanings: a <strong>Guide</strong> who leads the way, a <strong>Proof</strong> that establishes truth, and <strong>Evidence</strong> that can be trusted. The name was chosen deliberately — it mirrors what this tool does: it guides you through city fares with mathematical precision, leaving no room for ambiguity.
+    </p>
+  </div>
+
+  <!-- Anatomy -->
+  <div class="section" style="animation-delay:0.1s">
+    <div class="section-title">Logo Anatomy</div>
+    <div class="anatomy-grid">
+      <div class="anatomy-card">
+        <span class="arabic-demo">د</span>
+        <h3>The Dal (د)</h3>
+        <p>The letterform chosen is Dal, the first letter of Dalil. Rendered in Modern Geometric Kufic — an ancient script discipline meets digital precision. Its sweeping arc is engineered to evoke a road curving through a city.</p>
+      </div>
+      <div class="anatomy-card">
+        <span class="icon">🛤️</span>
+        <h3>The Road Metaphor</h3>
+        <p>The curved body of the Dal doubles as a road or transit path. A dashed center line reinforces the wayfinding metaphor, visually translating the brand's core purpose: transportation guidance.</p>
+      </div>
+      <div class="anatomy-card">
+        <span class="icon">📍</span>
+        <h3>The Nuqta as Pin</h3>
+        <p>In Arabic script, the nuqta is the dot that distinguishes letters. Here it is elevated to a map destination pin in Zellige Teal — bridging the grammar of the script with the grammar of navigation.</p>
+      </div>
+      <div class="anatomy-card">
+        <span class="icon">⬜</span>
+        <h3>Geometric Grid</h3>
+        <p>The anchor square in the corner references Islamic Girih tilework — a nod to mathematical precision and cultural heritage. It also grounds the mark, preventing the curved Dal from feeling unmoored.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Construction breakdown -->
+  <div class="construction">
+    <!-- Annotated SVG with callout lines -->
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Repeat logo at smaller scale -->
+      <path d="M 28 122 Q 28 55 90 55 Q 155 55 155 95 Q 155 132 118 138 L 28 138 Z"
+            fill="none" stroke="#C5A059" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 50 122 Q 50 80 90 80 Q 130 80 130 100"
+            fill="none" stroke="rgba(197,160,89,0.25)" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round"/>
+      <line x1="26" y1="138" x2="120" y2="138" stroke="#C5A059" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- Pin -->
+      <circle cx="90" cy="47" r="8" fill="#008080"/>
+      <circle cx="90" cy="47" r="3.5" fill="#F5F5F5"/>
+      <!-- Annotation lines -->
+      <!-- Pin callout -->
+      <line x1="100" y1="40" x2="140" y2="20" stroke="rgba(197,160,89,0.4)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="143" y="18" fill="rgba(197,160,89,0.7)" font-size="8" font-family="Montserrat, sans-serif">Nuqta / Pin</text>
+      <!-- Arc callout -->
+      <line x1="155" y1="90" x2="175" y2="80" stroke="rgba(0,128,128,0.5)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="143" y="73" fill="rgba(0,128,128,0.8)" font-size="8" font-family="Montserrat, sans-serif">Road arc</text>
+      <!-- Base callout -->
+      <line x1="70" y1="145" x2="40" y2="168" stroke="rgba(197,160,89,0.4)" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="5" y="178" fill="rgba(197,160,89,0.7)" font-size="8" font-family="Montserrat, sans-serif">Dal baseline</text>
+    </svg>
+
+    <div class="construction-notes">
+      <div class="note-item">
+        <div class="note-dot" style="background:#C5A059"></div>
+        <p><strong>Kufic Architecture</strong>Modern Geometric Kufic strips the script of calligraphic flourish, replacing organic strokes with precise angles and curves — fitting for a client-side engine built on mathematical rules.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#008080"></div>
+        <p><strong>Teal Nuqta</strong>The destination pin uses Zellige Teal — a color drawn from Moroccan mosaic tradition — creating a visual accent that is culturally specific, not generically "tech."</p>
+      </div>
+      <div class="note-item">
+        <div class="note-dot" style="background:#1A237E"></div>
+        <p><strong>Indigo Ground</strong>Navigator Indigo references the night sky ancient travelers read as a map. It positions Dalil as a tool of trust and orientation, not a cold data utility.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color Palette -->
+  <div class="section" style="animation-delay:0.3s">
+    <div class="section-title">Color System</div>
+    <div class="palette">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1A237E"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Navigator Indigo</span>
+          <span class="swatch-hex">#1A237E</span>
+          <span class="swatch-role">Primary — the night sky</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C5A059"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Heritage Gold</span>
+          <span class="swatch-hex">#C5A059</span>
+          <span class="swatch-role">Accent — desert sands</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F5F5F5; border-bottom: 1px solid rgba(0,0,0,0.08);"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Static White</span>
+          <span class="swatch-hex">#F5F5F5</span>
+          <span class="swatch-role">Background — speed</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#008080"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Zellige Teal</span>
+          <span class="swatch-hex">#008080</span>
+          <span class="swatch-role">UI — Moroccan tile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="arabic-tagline">طريقك، بكل بساطة</span>
+    <span class="eng-tagline">Your city, decoded.</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CANVAS LOGO RENDER SECTION
+════════════════════════════════════════════════ -->
+<div style="background: #07092b; border-top: 1px solid rgba(197,160,89,0.12); padding: 80px 32px;">
+  <div style="max-width:900px; margin:0 auto; position:relative; z-index:1;">
+
+    <div class="section-title" style="margin-bottom:32px;">
+      Canvas Logo Render
+    </div>
+
+    <!-- Variant tabs -->
+    <div style="display:flex; gap:10px; margin-bottom:32px; flex-wrap:wrap;">
+      <button class="var-btn active" data-variant="dark" onclick="setVariant('dark', this)">Dark</button>
+      <button class="var-btn" data-variant="light" onclick="setVariant('light', this)">Light</button>
+      <button class="var-btn" data-variant="mark" onclick="setVariant('mark', this)">Mark Only</button>
+      <button class="var-btn" data-variant="horizontal" onclick="setVariant('horizontal', this)">Horizontal</button>
+    </div>
+
+    <!-- Canvas -->
+    <div style="border-radius:20px; overflow:hidden; border:1px solid rgba(197,160,89,0.15); box-shadow: 0 40px 100px rgba(0,0,0,0.5);">
+      <canvas id="logoCanvas" width="900" height="500" style="width:100%; display:block;"></canvas>
+    </div>
+
+    <!-- Download -->
+    <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:12px;">
+      <button onclick="downloadCanvas('png')" style="
+        background: rgba(197,160,89,0.1); border:1px solid rgba(197,160,89,0.3);
+        color:#C5A059; padding:10px 22px; border-radius:8px; font-family:'Montserrat',sans-serif;
+        font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+        cursor:pointer; transition:all 0.2s;">⬇ Download PNG</button>
+    </div>
+
+    <!-- Controls info -->
+    <div style="margin-top:48px; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+      <div class="anatomy-card">
+        <span class="icon">🎨</span>
+        <h3>Full Canvas Control</h3>
+        <p>Every pixel is drawn programmatically — bezier curves, gradients, glows, and geometry are all computed in real-time for pixel-perfect precision at any scale.</p>
+      </div>
+      <div class="anatomy-card">
+        <span class="icon">✨</span>
+        <h3>Glow & Depth</h3>
+        <p>Canvas allows layered shadow/glow effects impossible in pure SVG — the teal pin radiates a soft luminescence, and the gold strokes carry ambient depth.</p>
+      </div>
+      <div class="anatomy-card">
+        <span class="icon">📐</span>
+        <h3>Bezier Precision</h3>
+        <p>The Dal's road arc uses cubic bezier curves, giving fine-grained control over tension, sweep, and where the letterform transitions from script to symbol.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .var-btn {
+    background: rgba(26,35,126,0.4);
+    border: 1px solid rgba(197,160,89,0.2);
+    color: rgba(245,245,245,0.5);
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .var-btn:hover { border-color: rgba(197,160,89,0.5); color: #C5A059; }
+  .var-btn.active { background: rgba(197,160,89,0.15); border-color: #C5A059; color: #C5A059; }
+</style>
+
+<script>
+(function() {
+  const canvas = document.getElementById('logoCanvas');
+  const ctx = canvas.getContext('2d');
+  let currentVariant = 'dark';
+
+  /* ─── Colour tokens ─── */
+  const C = {
+    indigo:  '#1A237E',
+    indigoDark: '#0d1240',
+    gold:    '#C5A059',
+    white:   '#F5F5F5',
+    teal:    '#008080',
+    tealLight: '#00b3b3',
+  };
+
+  /* ─── Girih background pattern ─── */
+  function drawPattern(bg) {
+    ctx.save();
+    ctx.strokeStyle = bg === 'light'
+      ? 'rgba(26,35,126,0.06)'
+      : 'rgba(197,160,89,0.05)';
+    ctx.lineWidth = 1;
+    const step = 40;
+    for (let x = 0; x < canvas.width; x += step) {
+      for (let y = 0; y < canvas.height; y += step) {
+        ctx.beginPath();
+        ctx.moveTo(x, y); ctx.lineTo(x + step, y + step);
+        ctx.moveTo(x + step, y); ctx.lineTo(x, y + step);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  /* ─── Core mark drawn at (cx, cy) with radius r ─── */
+  function drawMark(cx, cy, r, glowIntensity = 1) {
+    const s = r / 100; // scale factor (100 = base unit)
+
+    /* ── Outer ring (subtle) ── */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(197,160,89,0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.95, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    /* ── Road arc: the Dal body ──
+       Starts bottom-left, sweeps up-right like Dal (د)
+       Control points tuned to mimic calligraphic curve          */
+    const x0 = cx - r * 0.70, y0 = cy + r * 0.40;   // start (left of base)
+    const x1 = cx - r * 0.70, y1 = cy - r * 0.55;   // cp1
+    const x2 = cx + r * 0.60, y2 = cy - r * 0.55;   // cp2
+    const x3 = cx + r * 0.60, y3 = cy + r * 0.10;   // end (right mid)
+
+    /* Glow beneath the stroke */
+    ctx.save();
+    ctx.shadowColor = C.gold;
+    ctx.shadowBlur = 18 * glowIntensity;
+    ctx.strokeStyle = C.gold;
+    ctx.lineWidth = 6 * s * 0.6 + 2;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+    ctx.stroke();
+    ctx.restore();
+
+    /* Actual gold stroke */
+    ctx.save();
+    ctx.strokeStyle = C.gold;
+    ctx.lineWidth = 5 * s * 0.6 + 1.5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.bezierCurveTo(x1, y1, x2, y2, x3, y3);
+    ctx.stroke();
+    ctx.restore();
+
+    /* ── Baseline of Dal ── */
+    const blY = cy + r * 0.42;
+    ctx.save();
+    ctx.shadowColor = C.gold;
+    ctx.shadowBlur = 10 * glowIntensity;
+    ctx.strokeStyle = C.gold;
+    ctx.lineWidth = 5 * s * 0.6 + 1.5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(cx - r * 0.75, blY);
+    ctx.lineTo(cx + r * 0.30, blY);
+    ctx.stroke();
+    ctx.restore();
+
+    /* ── Dashed lane line (road metaphor) ── */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(197,160,89,0.28)';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.setLineDash([6, 7]);
+    const ix0 = cx - r * 0.45, iy0 = cy + r * 0.15;
+    const ix1 = cx - r * 0.45, iy1 = cy - r * 0.28;
+    const ix2 = cx + r * 0.30, iy2 = cy - r * 0.28;
+    const ix3 = cx + r * 0.30, iy3 = cy - r * 0.05;
+    ctx.beginPath();
+    ctx.moveTo(ix0, iy0);
+    ctx.bezierCurveTo(ix1, iy1, ix2, iy2, ix3, iy3);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    /* ── Nuqta / Destination Pin ── */
+    const px = cx, py = cy - r * 0.60;
+    const pinR = r * 0.13;
+
+    /* Outer glow rings */
+    [0.38, 0.25].forEach((a, i) => {
+      ctx.save();
+      ctx.strokeStyle = `rgba(0,128,128,${a})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(px, py, pinR * (1.8 - i * 0.4), 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    });
+
+    /* Pin fill with radial gradient */
+    const pinGrad = ctx.createRadialGradient(px - pinR*0.3, py - pinR*0.3, 0, px, py, pinR);
+    pinGrad.addColorStop(0, C.tealLight);
+    pinGrad.addColorStop(1, C.teal);
+    ctx.save();
+    ctx.shadowColor = C.teal;
+    ctx.shadowBlur = 20 * glowIntensity;
+    ctx.fillStyle = pinGrad;
+    ctx.beginPath();
+    ctx.arc(px, py, pinR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    /* White inner dot */
+    ctx.save();
+    ctx.fillStyle = C.white;
+    ctx.beginPath();
+    ctx.arc(px, py, pinR * 0.38, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    /* ── Girih corner accent ── */
+    const sq = r * 0.22, sqX = cx + r * 0.50, sqY = cy + r * 0.20;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(197,160,89,0.35)';
+    ctx.fillStyle = 'rgba(197,160,89,0.07)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(sqX, sqY, sq, sq, 3);
+    ctx.fill();
+    ctx.stroke();
+    // cross lines inside
+    ctx.strokeStyle = 'rgba(197,160,89,0.3)';
+    ctx.beginPath();
+    ctx.moveTo(sqX, sqY + sq/2); ctx.lineTo(sqX + sq, sqY + sq/2);
+    ctx.moveTo(sqX + sq/2, sqY); ctx.lineTo(sqX + sq/2, sqY + sq);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ─── Wordmark text ─── */
+  function drawWordmark(x, y, color, align = 'left') {
+    ctx.save();
+    ctx.textAlign = align;
+    ctx.fillStyle = color;
+
+    /* Arabic */
+    ctx.font = 'bold 56px Amiri, serif';
+    ctx.fillText('دليل', x, y);
+
+    /* Latin subtitle */
+    ctx.font = '300 12px Montserrat, sans-serif';
+    ctx.fillStyle = C.gold;
+    ctx.letterSpacing = '5px';
+    ctx.fillText('DALIL', x, y + 28);
+
+    /* Tagline */
+    ctx.font = '300 10px Readex Pro, sans-serif';
+    ctx.fillStyle = 'rgba(245,245,245,0.35)';
+    ctx.fillText('طريقك، بكل بساطة', x, y + 50);
+
+    ctx.restore();
+  }
+
+  /* ─── Variant renderers ─── */
+  const variants = {
+
+    dark() {
+      const W = canvas.width, H = canvas.height;
+      /* Background */
+      const bg = ctx.createLinearGradient(0, 0, W, H);
+      bg.addColorStop(0, '#0d1240');
+      bg.addColorStop(1, '#1A237E');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+      drawPattern('dark');
+
+      /* Radial glow behind mark */
+      const glow = ctx.createRadialGradient(W*0.35, H*0.5, 0, W*0.35, H*0.5, 200);
+      glow.addColorStop(0, 'rgba(197,160,89,0.07)');
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, W, H);
+
+      drawMark(W * 0.30, H * 0.50, 160, 1);
+      drawWordmark(W * 0.56, H * 0.46, C.white, 'left');
+
+      /* Thin gold rule */
+      ctx.save();
+      ctx.strokeStyle = 'rgba(197,160,89,0.2)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.54, H * 0.28);
+      ctx.lineTo(W * 0.54, H * 0.72);
+      ctx.stroke();
+      ctx.restore();
+    },
+
+    light() {
+      const W = canvas.width, H = canvas.height;
+      ctx.fillStyle = '#F0EFE8';
+      ctx.fillRect(0, 0, W, H);
+      drawPattern('light');
+
+      const glow = ctx.createRadialGradient(W*0.35, H*0.5, 0, W*0.35, H*0.5, 220);
+      glow.addColorStop(0, 'rgba(26,35,126,0.05)');
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, W, H);
+
+      drawMark(W * 0.30, H * 0.50, 160, 0.5);
+
+      ctx.save();
+      ctx.textAlign = 'left';
+      ctx.fillStyle = C.indigo;
+      ctx.font = 'bold 56px Amiri, serif';
+      ctx.fillText('دليل', W * 0.56, H * 0.46);
+      ctx.font = '600 12px Montserrat, sans-serif';
+      ctx.fillStyle = C.gold;
+      ctx.fillText('DALIL', W * 0.56, H * 0.46 + 28);
+      ctx.font = '300 10px Readex Pro, sans-serif';
+      ctx.fillStyle = 'rgba(26,35,126,0.45)';
+      ctx.fillText('طريقك، بكل بساطة', W * 0.56, H * 0.46 + 50);
+      ctx.restore();
+
+      ctx.save();
+      ctx.strokeStyle = 'rgba(26,35,126,0.15)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.54, H * 0.28); ctx.lineTo(W * 0.54, H * 0.72);
+      ctx.stroke();
+      ctx.restore();
+    },
+
+    mark() {
+      const W = canvas.width, H = canvas.height;
+      const bg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, 300);
+      bg.addColorStop(0, '#1A237E');
+      bg.addColorStop(1, '#07092b');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+      drawPattern('dark');
+      drawMark(W / 2, H / 2, 190, 1.4);
+    },
+
+    horizontal() {
+      const W = canvas.width, H = canvas.height;
+      const bg = ctx.createLinearGradient(0, 0, W, 0);
+      bg.addColorStop(0, '#07092b');
+      bg.addColorStop(1, '#1A237E');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+      drawPattern('dark');
+
+      drawMark(W * 0.15, H * 0.50, 130, 1);
+
+      /* Wordmark to the right */
+      ctx.save();
+      ctx.textAlign = 'left';
+      ctx.fillStyle = C.white;
+      ctx.font = 'bold 72px Amiri, serif';
+      ctx.fillText('دليل', W * 0.32, H * 0.52);
+      ctx.restore();
+
+      /* Vertical separator */
+      ctx.save();
+      ctx.strokeStyle = 'rgba(197,160,89,0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(W * 0.58, H * 0.28); ctx.lineTo(W * 0.58, H * 0.72);
+      ctx.stroke();
+      ctx.restore();
+
+      /* Tagline block */
+      ctx.save();
+      ctx.textAlign = 'left';
+      ctx.fillStyle = C.gold;
+      ctx.font = '300 13px Montserrat, sans-serif';
+      ctx.fillText('DALIL', W * 0.61, H * 0.43);
+      ctx.fillStyle = 'rgba(245,245,245,0.35)';
+      ctx.font = '300 10px Readex Pro, sans-serif';
+      ctx.fillText('Your city, decoded.', W * 0.61, H * 0.58);
+      ctx.restore();
+    }
+  };
+
+  function render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    variants[currentVariant]();
+  }
+
+  window.setVariant = function(v, btn) {
+    currentVariant = v;
+    document.querySelectorAll('.var-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  };
+
+  window.downloadCanvas = function(fmt) {
+    const link = document.createElement('a');
+    link.download = `dalil-logo-${currentVariant}.${fmt}`;
+    link.href = canvas.toDataURL('image/' + (fmt === 'png' ? 'png' : 'jpeg'), 0.95);
+    link.click();
+  };
+
+  /* Wait for fonts to load then render */
+  document.fonts.ready.then(() => render());
+  /* Fallback */
+  setTimeout(render, 500);
+})();
+</script>
+
+</body>
+</html>
