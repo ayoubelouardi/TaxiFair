@@ -73,14 +73,14 @@ function ZoomControls() {
     <div className="absolute bottom-6 end-6 z-[1000] flex flex-col gap-2">
       <button
         onClick={handleZoomIn}
-        className="w-10 h-10 bg-white rounded-lg shadow-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors"
+        className="w-10 h-10 bg-card rounded-lg shadow-lg border border-border flex items-center justify-center hover:bg-muted transition-colors"
         title={t('home.zoomIn', { defaultValue: 'Zoom in' })}
       >
         <Plus className="w-5 h-5 text-primary" />
       </button>
       <button
         onClick={handleZoomOut}
-        className="w-10 h-10 bg-white rounded-lg shadow-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors"
+        className="w-10 h-10 bg-card rounded-lg shadow-lg border border-border flex items-center justify-center hover:bg-muted transition-colors"
         title={t('home.zoomOut', { defaultValue: 'Zoom out' })}
       >
         <Minus className="w-5 h-5 text-primary" />
@@ -120,7 +120,7 @@ function MapEventsHandler({
 
   return createPortal(
     <div 
-      className="absolute z-[2000] bg-white rounded-lg shadow-xl border border-slate-200 p-1 flex flex-col gap-1 min-w-[160px]"
+      className="absolute z-[2000] bg-card rounded-lg shadow-xl border border-border p-1 flex flex-col gap-1 min-w-[160px]"
       style={{
         left: contextMenu.x,
         top: contextMenu.y,
@@ -133,7 +133,7 @@ function MapEventsHandler({
           onContextMenuSelect?.(contextMenu.lat, contextMenu.lng, 'origin');
           setContextMenu(null);
         }}
-        className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 rounded-md text-sm font-medium transition-colors text-start"
+        className="flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-md text-sm font-medium transition-colors text-start"
       >
         <div className="w-2 h-2 rounded-full bg-primary" />
         {t('home.selectAsOrigin')}
@@ -144,12 +144,12 @@ function MapEventsHandler({
           onContextMenuSelect?.(contextMenu.lat, contextMenu.lng, 'destination');
           setContextMenu(null);
         }}
-        className="flex items-center gap-2 px-3 py-2 hover:bg-slate-100 rounded-md text-sm font-medium transition-colors text-start"
+        className="flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-md text-sm font-medium transition-colors text-start"
       >
         <div className="w-2 h-2 rounded-full bg-accent" />
         {t('home.selectAsDestination')}
       </button>
-      <div className="h-px bg-slate-100 my-1" />
+      <div className="h-px bg-border/60 my-1" />
       <button
         onClick={() => setContextMenu(null)}
         className="px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground text-center"
@@ -184,7 +184,7 @@ export function MapBackground({ origin, destination, onMapClick, onContextMenuSe
   const { t } = useTranslation();
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 bg-slate-100">
+    <div ref={containerRef} className="absolute inset-0 z-0 bg-muted/40">
       <MapContainer 
         center={[defaultCenter.lat, defaultCenter.lng]} 
         zoom={13} 
@@ -220,7 +220,7 @@ export function MapBackground({ origin, destination, onMapClick, onContextMenuSe
       <SelectionModeOverlay selectionMode={selectionMode} />
 
       {/* Subtle overlay gradient to make text legible if placed on top */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/10 to-transparent z-[11]" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-background/25 to-transparent z-[11]" />
     </div>
   );
 }

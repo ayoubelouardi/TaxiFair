@@ -12,7 +12,7 @@ interface EstimateCardProps {
 export function EstimateCard({ estimate, isLoading }: EstimateCardProps) {
   if (isLoading) {
     return (
-      <Card className="w-full bg-white/95 backdrop-blur shadow-xl border-white/20">
+      <Card className="w-full bg-card/95 backdrop-blur shadow-xl border-border/40">
         <CardContent className="p-8 flex flex-col items-center justify-center space-y-4">
           <div className="animate-spin text-primary">
             <Calculator className="w-8 h-8" />
@@ -31,14 +31,14 @@ export function EstimateCard({ estimate, isLoading }: EstimateCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <Card className="w-full overflow-hidden bg-white/95 backdrop-blur-md shadow-2xl border-white/50 ring-1 ring-black/5">
+      <Card className="w-full overflow-hidden bg-card/95 backdrop-blur-md shadow-2xl border-border/60 ring-1 ring-border/40">
         <CardHeader className="bg-gradient-to-r from-primary/10 to-transparent pb-4">
           <div className="flex justify-between items-start">
             <CardTitle className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
               Estimated Fare
             </CardTitle>
             {estimate.isNightFare && (
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-900/5 text-indigo-700 text-xs font-bold">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/15 text-primary text-xs font-bold">
                 <Moon className="w-3.5 h-3.5" />
                 <span>Night Rate</span>
               </div>
@@ -88,7 +88,7 @@ export function EstimateCard({ estimate, isLoading }: EstimateCardProps) {
                 <span className="font-medium text-foreground">{estimate.breakdown.distanceFare.toFixed(2)} {estimate.currency}</span>
               </div>
               {estimate.breakdown.nightSurcharge > 0 && (
-                <div className="flex justify-between text-indigo-600/80">
+                <div className="flex justify-between text-primary/80">
                   <span>Night Surcharge</span>
                   <span className="font-medium">+{estimate.breakdown.nightSurcharge.toFixed(2)} {estimate.currency}</span>
                 </div>

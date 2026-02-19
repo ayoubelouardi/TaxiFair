@@ -12,6 +12,7 @@ import type { Place } from "@/data/places";
 import { MapBackground } from "@/components/MapBackground";
 import { EstimateCard } from "@/components/EstimateCard";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -136,22 +137,23 @@ export default function Home() {
       <div className="relative z-10 w-full md:w-[450px] h-full flex flex-col pointer-events-none">
         <div className="flex-1 overflow-y-auto p-4 md:p-6 pointer-events-auto">
           
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-white/50"
-          >
-            <div className="flex items-center justify-between">
-              <div>
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 bg-card/90 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-border/60"
+            >
+              <div className="flex items-center justify-between">
+                <div>
                 <h1 className="text-2xl font-display font-bold text-primary">
                   {t('app.name')} <span className="font-arabic">دليل</span>
                 </h1>
                 <p className="text-sm text-muted-foreground">{t('app.tagline')}</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <LanguageSwitcher />
-                <Link
-                  href="/pricing"
+                </div>
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <LanguageSwitcher />
+                  <Link
+                    href="/pricing"
                   className="text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
                 >
                   {t('nav.pricing')}
@@ -165,7 +167,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
           >
-            <Card className="shadow-xl border-white/50 bg-white/95 backdrop-blur">
+            <Card className="shadow-xl border-border/60 bg-card/95 backdrop-blur">
               <CardHeader className="pb-4">
                 <CardTitle className="text-lg">{t('home.title')}</CardTitle>
                 <CardDescription>{t('home.description')}</CardDescription>
@@ -185,7 +187,7 @@ export default function Home() {
                             </FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
-                                <SelectTrigger className="bg-slate-50 border-slate-200">
+                                <SelectTrigger className="bg-background/70 border-border">
                                   <SelectValue placeholder={t('home.selectCity')} />
                                 </SelectTrigger>
                               </FormControl>
@@ -214,7 +216,7 @@ export default function Home() {
                             </FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
-                                <SelectTrigger className="bg-slate-50 border-slate-200">
+                                <SelectTrigger className="bg-background/70 border-border">
                                   <SelectValue placeholder={t('home.selectMode')} />
                                 </SelectTrigger>
                               </FormControl>
@@ -234,7 +236,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100">
+                    <div className="flex items-center justify-between p-3 bg-muted/40 rounded-lg border border-border">
                       <div className="space-y-0.5">
                         <FormLabel className="text-sm font-medium">{t('home.nightPricing')}</FormLabel>
                         <p className="text-xs text-muted-foreground">{t('home.nightPricingDescription')}</p>
@@ -255,7 +257,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="h-px bg-slate-100 my-2" />
+                    <div className="h-px bg-border/60 my-2" />
 
                     <div className="space-y-3">
                       <div className="space-y-2">
@@ -328,7 +330,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="hidden md:block absolute bottom-4 right-4 z-[5] bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs text-muted-foreground border border-white/50">
+      <div className="hidden md:block absolute bottom-4 right-4 z-[5] bg-card/80 backdrop-blur px-3 py-1 rounded-full text-xs text-muted-foreground border border-border/60">
         {t('app.copyright', { year: new Date().getFullYear() })}
       </div>
     </div>
@@ -364,7 +366,7 @@ function LocationSearch({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="flex-1 justify-between bg-slate-50 border-slate-200"
+            className="flex-1 justify-between bg-background/70 border-border"
           >
             <span className="truncate">{selectedValue || placeholder}</span>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

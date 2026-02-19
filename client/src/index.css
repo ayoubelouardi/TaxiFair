@@ -45,6 +45,39 @@
   --card-foreground: 234 66% 15%;
 }
 
+.dark {
+  --background: 230 30% 9%;
+  --foreground: 0 0% 96%;
+
+  --primary: 234 66% 58%;
+  --primary-foreground: 234 66% 12%;
+
+  --secondary: 230 22% 15%;
+  --secondary-foreground: 0 0% 96%;
+
+  --muted: 230 22% 15%;
+  --muted-foreground: 220 10% 70%;
+
+  --accent: 42 47% 57%;
+  --accent-foreground: 234 66% 15%;
+
+  --teal: 180 100% 35%;
+  --teal-foreground: 230 30% 9%;
+
+  --destructive: 0 63% 45%;
+  --destructive-foreground: 0 0% 96%;
+
+  --border: 230 18% 24%;
+  --input: 230 18% 24%;
+  --ring: 234 66% 58%;
+
+  --popover: 230 28% 12%;
+  --popover-foreground: 0 0% 96%;
+
+  --card: 230 28% 12%;
+  --card-foreground: 0 0% 96%;
+}
+
 @layer base {
   body {
     @apply bg-background text-foreground antialiased;
@@ -62,7 +95,7 @@
   width: 100%;
   height: 100%;
   z-index: 10;
-  background-color: #f1f5f9;
+  background-color: hsl(var(--muted));
 }
 
 /* Custom Scrollbar */

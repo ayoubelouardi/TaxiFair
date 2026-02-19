@@ -3,19 +3,23 @@ import { data } from "@/data/pricing";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Pricing() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b bg-white">
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border bg-card">
         <div className="mx-auto max-w-5xl px-4 py-5 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-display font-bold text-primary">Pricing & Transport</h1>
             <p className="text-sm text-muted-foreground">Full local dataset</p>
           </div>
-          <Link href="/" className="text-sm font-medium text-primary hover:underline">
-            Back to Estimator
-          </Link>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Link href="/" className="text-sm font-medium text-primary hover:underline">
+              Back to Estimator
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -40,10 +44,10 @@ export default function Pricing() {
                 const rules = profile.rulesConfig as Record<string, any>;
 
                 return (
-                  <div key={mode.id} className="rounded-xl border border-slate-200 bg-white p-4">
+                  <div key={mode.id} className="rounded-xl border border-border bg-card p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-semibold text-slate-900">{mode.name}</h3>
+                        <h3 className="text-lg font-semibold text-foreground">{mode.name}</h3>
                         <p className="text-xs text-muted-foreground">Strategy: {profile.pricingStrategy}</p>
                       </div>
                       <Badge>{mode.slug}</Badge>
