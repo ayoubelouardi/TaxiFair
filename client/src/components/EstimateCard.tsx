@@ -88,15 +88,15 @@ export function EstimateCard({ estimate, isLoading }: EstimateCardProps) {
                 <span className="font-medium text-foreground">{estimate.breakdown.distanceFare.toFixed(2)} {estimate.currency}</span>
               </div>
               {estimate.breakdown.nightSurcharge > 0 && (
-                <div className="flex justify-between text-primary/80">
+                <div className="flex justify-between text-primary/90 font-medium">
                   <span>Night Surcharge</span>
-                  <span className="font-medium">+{estimate.breakdown.nightSurcharge.toFixed(2)} {estimate.currency}</span>
+                  <span>+{estimate.breakdown.nightSurcharge.toFixed(2)} {estimate.currency}</span>
                 </div>
               )}
               {estimate.breakdown.minimumFareAdjustment !== undefined && estimate.breakdown.minimumFareAdjustment > 0 && (
-                <div className="flex justify-between text-amber-600/80">
+                <div className="flex justify-between text-accent font-medium">
                   <span>Minimum Fare Adj.</span>
-                  <span className="font-medium">+{estimate.breakdown.minimumFareAdjustment.toFixed(2)} {estimate.currency}</span>
+                  <span>+{estimate.breakdown.minimumFareAdjustment.toFixed(2)} {estimate.currency}</span>
                 </div>
               )}
             </div>

@@ -12,7 +12,7 @@
 
   /* Dalil Brand Theme - Navigator Indigo & Heritage Gold */
   --background: 0 0% 96%; /* Static White #F5F5F5 */
-  --foreground: 234 66% 15%;
+  --foreground: 234 66% 15%; /* Deep Indigo Text */
 
   --primary: 234 66% 30%; /* Navigator Indigo #1A237E */
   --primary-foreground: 0 0% 96%;
@@ -20,7 +20,7 @@
   --secondary: 0 0% 93%;
   --secondary-foreground: 234 66% 15%;
 
-  --muted: 0 0% 93%;
+  --muted: 234 20% 90%;
   --muted-foreground: 234 20% 40%;
 
   --accent: 42 47% 57%; /* Heritage Gold #C5A059 */
@@ -46,35 +46,39 @@
 }
 
 .dark {
-  --background: 230 30% 9%;
+  /* Deep Indigo Background #0a0e23 */
+  --background: 234 55% 8%; 
   --foreground: 0 0% 96%;
 
-  --primary: 234 66% 58%;
-  --primary-foreground: 234 66% 12%;
+  /* Lighter Indigo for Primary Actions to stand out */
+  --primary: 234 50% 50%;
+  --primary-foreground: 0 0% 100%;
 
-  --secondary: 230 22% 15%;
+  --secondary: 234 40% 15%;
   --secondary-foreground: 0 0% 96%;
 
-  --muted: 230 22% 15%;
-  --muted-foreground: 220 10% 70%;
+  --muted: 234 40% 15%;
+  --muted-foreground: 234 20% 70%;
 
-  --accent: 42 47% 57%;
-  --accent-foreground: 234 66% 15%;
+  /* Gold Accent remains the same or slightly brighter */
+  --accent: 42 47% 57%; 
+  --accent-foreground: 0 0% 100%;
 
+  /* Teal for UI elements */
   --teal: 180 100% 35%;
-  --teal-foreground: 230 30% 9%;
+  --teal-foreground: 0 0% 96%;
 
   --destructive: 0 63% 45%;
   --destructive-foreground: 0 0% 96%;
 
-  --border: 230 18% 24%;
-  --input: 230 18% 24%;
-  --ring: 234 66% 58%;
+  --border: 234 40% 20%;
+  --input: 234 40% 20%;
+  --ring: 234 50% 50%;
 
-  --popover: 230 28% 12%;
+  --popover: 234 50% 12%;
   --popover-foreground: 0 0% 96%;
 
-  --card: 230 28% 12%;
+  --card: 234 50% 12%;
   --card-foreground: 0 0% 96%;
 }
 

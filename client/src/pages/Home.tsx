@@ -123,7 +123,7 @@ export default function Home() {
   const isRTL = i18n.language === 'ar';
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex flex-col md:flex-row" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="relative w-full min-h-screen md:h-screen overflow-hidden flex flex-col md:flex-row" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="absolute inset-0 w-full h-full">
         <MapBackground 
           origin={selectedOrigin} 
@@ -134,27 +134,27 @@ export default function Home() {
         />
       </div>
 
-      <div className="relative z-10 w-full md:w-[450px] h-full flex flex-col pointer-events-none">
-        <div className="flex-1 overflow-y-auto p-4 md:p-6 pointer-events-auto">
+      <div className="relative z-10 w-full md:w-[450px] min-h-screen md:h-full flex flex-col pointer-events-none">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 pb-24 md:pb-6 pointer-events-auto">
           
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 bg-card/90 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-border/60"
+              className="mb-4 sm:mb-6 bg-card/90 backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-sm border border-border/60"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                <h1 className="text-2xl font-display font-bold text-primary">
+                <h1 className="text-xl sm:text-2xl font-display font-bold text-primary">
                   {t('app.name')} <span className="font-arabic">دليل</span>
                 </h1>
                 <p className="text-sm text-muted-foreground">{t('app.tagline')}</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2 ms-auto">
                   <ThemeToggle />
                   <LanguageSwitcher />
                   <Link
                     href="/pricing"
-                  className="text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
+                  className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-primary hover:underline whitespace-nowrap"
                 >
                   {t('nav.pricing')}
                 </Link>
@@ -176,7 +176,7 @@ export default function Home() {
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <FormField
                         control={form.control}
                         name="citySlug"
@@ -330,7 +330,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div className="hidden md:block absolute bottom-4 right-4 z-[5] bg-card/80 backdrop-blur px-3 py-1 rounded-full text-xs text-muted-foreground border border-border/60">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-[5] bg-card/80 backdrop-blur px-3 py-1 rounded-full text-[10px] sm:text-xs text-muted-foreground border border-border/60 max-w-[92vw] whitespace-nowrap overflow-hidden text-ellipsis">
         {t('app.copyright', { year: new Date().getFullYear() })}
       </div>
     </div>
@@ -372,7 +372,7 @@ function LocationSearch({
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[300px] p-0" align="start">
+        <PopoverContent className="w-[min(90vw,300px)] sm:w-[300px] p-0" align="start">
           <Command>
             <CommandInput placeholder={t('home.searchPlaceholder')} />
             <CommandList>

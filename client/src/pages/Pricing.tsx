@@ -9,12 +9,12 @@ export default function Pricing() {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card">
-        <div className="mx-auto max-w-5xl px-4 py-5 flex items-center justify-between">
+        <div className="mx-auto max-w-5xl px-3 sm:px-4 py-4 sm:py-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-display font-bold text-primary">Pricing & Transport</h1>
+            <h1 className="text-xl sm:text-2xl font-display font-bold text-primary">Pricing & Transport</h1>
             <p className="text-sm text-muted-foreground">Full local dataset</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 self-start sm:self-auto">
             <ThemeToggle />
             <Link href="/" className="text-sm font-medium text-primary hover:underline">
               Back to Estimator
@@ -23,7 +23,7 @@ export default function Pricing() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 py-8 space-y-6">
+      <main className="mx-auto max-w-5xl px-3 sm:px-4 py-6 sm:py-8 space-y-4 sm:space-y-6">
         {data.cities.map((city) => (
           <Card key={city.id} className="shadow-sm">
             <CardHeader>
@@ -45,7 +45,7 @@ export default function Pricing() {
 
                 return (
                   <div key={mode.id} className="rounded-xl border border-border bg-card p-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <div>
                         <h3 className="text-lg font-semibold text-foreground">{mode.name}</h3>
                         <p className="text-xs text-muted-foreground">Strategy: {profile.pricingStrategy}</p>

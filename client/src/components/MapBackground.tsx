@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { Icon } from 'leaflet';
 import { Plus, Minus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from 'next-themes';
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import markerIcon2xPng from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
@@ -70,17 +71,17 @@ function ZoomControls() {
   };
 
   return (
-    <div className="absolute bottom-6 end-6 z-[1000] flex flex-col gap-2">
+    <div className="absolute bottom-20 sm:bottom-6 end-3 sm:end-6 z-[1000] flex flex-col gap-2">
       <button
         onClick={handleZoomIn}
-        className="w-10 h-10 bg-card rounded-lg shadow-lg border border-border flex items-center justify-center hover:bg-muted transition-colors"
+        className="w-9 h-9 sm:w-10 sm:h-10 bg-card rounded-lg shadow-lg border border-border flex items-center justify-center hover:bg-muted transition-colors"
         title={t('home.zoomIn', { defaultValue: 'Zoom in' })}
       >
         <Plus className="w-5 h-5 text-primary" />
       </button>
       <button
         onClick={handleZoomOut}
-        className="w-10 h-10 bg-card rounded-lg shadow-lg border border-border flex items-center justify-center hover:bg-muted transition-colors"
+        className="w-9 h-9 sm:w-10 sm:h-10 bg-card rounded-lg shadow-lg border border-border flex items-center justify-center hover:bg-muted transition-colors"
         title={t('home.zoomOut', { defaultValue: 'Zoom out' })}
       >
         <Minus className="w-5 h-5 text-primary" />
@@ -120,7 +121,7 @@ function MapEventsHandler({
 
   return createPortal(
     <div 
-      className="absolute z-[2000] bg-card rounded-lg shadow-xl border border-border p-1 flex flex-col gap-1 min-w-[160px]"
+      className="absolute z-[2000] bg-card rounded-lg shadow-xl border border-border p-1 flex flex-col gap-1 min-w-[140px] max-w-[80vw]"
       style={{
         left: contextMenu.x,
         top: contextMenu.y,
@@ -168,7 +169,7 @@ function SelectionModeOverlay({ selectionMode }: { selectionMode?: 'origin' | 'd
   
   return (
     <div className="absolute top-4 start-1/2 -translate-x-1/2 z-[1000] pointer-events-none">
-      <div className="bg-primary text-white px-4 py-2 rounded-full shadow-lg font-medium animate-pulse">
+      <div className="bg-primary text-white px-3 sm:px-4 py-2 rounded-full shadow-lg font-medium animate-pulse text-xs sm:text-sm text-center max-w-[90vw]">
         {selectionMode === 'origin' 
           ? t('home.clickToSelectOrigin', { defaultValue: 'Click on map to select origin' })
           : t('home.clickToSelectDestination', { defaultValue: 'Click on map to select destination' })
@@ -182,6 +183,13 @@ export function MapBackground({ origin, destination, onMapClick, onContextMenuSe
   const containerRef = useRef<HTMLDivElement>(null);
   const defaultCenter = { lat: 33.5731, lng: -7.5898 };
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
+  // Determine tile layer based on theme
+  const isDark = theme === 'dark';
+  const tileUrl = isDark 
+    ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+    : "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
 
   return (
     <div ref={containerRef} className="absolute inset-0 z-0 bg-muted/40">
@@ -193,7 +201,7 @@ export function MapBackground({ origin, destination, onMapClick, onContextMenuSe
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          url={tileUrl}
         />
         
         {origin && (
