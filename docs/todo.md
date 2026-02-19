@@ -1,5 +1,5 @@
-- [ ] Dark mode
-- [ ] Mobile Responsive Design
+- [x] Dark mode
+- [x] Mobile Responsive Design
 - [ ] Add bus casablanca data
 - [ ] add search for famous places in the map
 - [ ] Branding Page
